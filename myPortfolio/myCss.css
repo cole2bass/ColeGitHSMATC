@@ -48,6 +48,10 @@ li {
 form label {
     font-weight: bold;
     font-size: 25px;
+    vertical-align: top;
+    color: yellow;
+    font-size: 30px;
+    text-shadow: 4px 4px 10px darkgoldenrod;
 }
 
 input {
@@ -143,46 +147,6 @@ div {
     background-color: #AA0;
 }
 
-#title {
-    font-size: 3em;
-    color: rgb(255,255,72);
-    text-shadow: 4px 5px 7px rgb(230,230,66);
-}
-
-#listprojects {
-    display: flex;
-    flex-direction: column;
-}
-
-#formDiv {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    margin: 0 auto;
-    padding: 0 auto;
-}
-
-#formDiv div {
-    padding: 8px;
-}
-
-#formDiv label {
-    vertical-align: top;
-    color: yellow;
-    font-size: 30px;
-    text-shadow: 4px 4px 10px darkgoldenrod;
-}
-
-#send {
-    background-color: rgb(255, 255, 200);
-    box-shadow: 2px 2px 3px rgb(230,230,175)
-}
-
-#reset {
-    background-color: rgb(255,255,75);
-    box-shadow: 2px 2px 3px rgb(230,230,50)
-}
-
 #navi {
 
     display: flex;
@@ -216,6 +180,41 @@ div {
     background-color: #afaf00;
     opacity: .4;
 }
+
+#title {
+    font-size: 3em;
+    color: rgb(255,255,72);
+    text-shadow: 4px 5px 7px rgb(230,230,66);
+}
+
+
+#formDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 0 auto;
+    padding: 0 auto;
+}
+
+#formDiv div {
+    padding: 8px;
+}
+
+#listprojects {
+    display: flex;
+    flex-direction: column;
+}
+
+#send {
+    background-color: rgb(255, 255, 200);
+    box-shadow: 2px 2px 3px rgb(230,230,175)
+}
+
+#reset {
+    background-color: rgb(255,255,75);
+    box-shadow: 2px 2px 3px rgb(230,230,50)
+}
+
 
 
 
