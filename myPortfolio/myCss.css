@@ -51,29 +51,21 @@ body {
 
 #formDiv label {
     vertical-align: top;
+    color: yellow;
+    font-size: 30px;
+    text-shadow: 4px 4px 10px darkgoldenrod;
 }
 
 #send {
     color: goldenrod;
     background-color: rgb(255, 255, 200);
-    border-collapse: collapse;
-    border-radius: 8px;
-    width: 200px;
-    height: auto;
-    font-size: 26px;
-    border-width:0;
-    box-shadow: 2px 2px 3px rgb(230,230,175);
+    box-shadow: 2px 2px 3px rgb(230,230,175)
 }
 
 #reset {
     color: goldenrod;
     background-color: rgb(255,255,75);
-    border-radius: 8px;
-    width: 200px;
-    height: auto;
-    font-size: 26px;
-    border-width: 0;
-    box-shadow: 2px 2px 3px rgb(230,230,50);
+    box-shadow: 2px 2px 3px rgb(230,230,50)
 }
 
 #navi {
@@ -110,37 +102,32 @@ body {
     opacity: .4;
 }
 
-#homePage #homeLink{
+.active{
     background-color: #afaf00;
     opacity: .4;
 }
 
-#contactPage #contactLink{
-    background-color: #afaf00;
-    opacity: .4;
+.button {
+    border-collapse: collapse;
+    border-radius: 8px;
+    width: 200px;
+    height: auto;
+    font-size: 26px;
+    border-width:0;
 }
-
-#portfolioPage #portfolioLink{
-    background-color: #afaf00;
-    opacity: .4;
-}
-
-#resumePage #resumeLink{
-    background-color: #afaf00;
-    opacity: .4;
-}
-
 
 .project {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color: rgb(225, 225, 50)
+    background-color: rgb(225, 225, 50);
+    box-shadow: 5px 6px 15px rgb(175,175,45);
 }
 
 .project img {
     margin-top: 10px;
 }
+
 
 p {
 
@@ -210,6 +197,10 @@ textarea {
 embed {
     width: 90%;
     height: 500px;
+}
+
+div {
+    padding: 15px;
 }
 
 .paragraph::first-letter {
