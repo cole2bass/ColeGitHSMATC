@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Contact Info: Cole Hinton</title>
+
+    <link rel="stylesheet" type="text/css" href="myCss.css">
+
+
+</head>
+<body id="contactPage">
+
+    <div id="main">
+
+    <h1>Contact Me</h1>
+
+    <div id="navi">
+
+        <a href="index.html">Home</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a id="contactLink" href="MyContactInfo.html">Contact Me</a>
+        <a href="resume.html">Resume</a>
+
+    </div>
+
+        <div id="container">
+
+            <h2 id="title">My Contact Page</h2>
+
+            <hr>
+
+            <div id="formDiv">
+
+                <form id="emailMe" method="post" action="http://www.xcobra.com/sendemail.php">
+
+                    <input type="hidden" name="emailto" value="cole2bass@gmail.com" />
+
+                    <div>
+                        <label for="subject">Name: </label><input id="subject" name="emailsubject" type="text" placeholder="Example: John Doe" required>
+                    </div>
+
+                    <div>
+                        <label for="email">E-mail: </label><input id="email" name="emailheader" type="email" placeholder="Example: example@fakeCompany.com">
+                    </div>
+
+                    <div>
+                        <label for="message">Message: </label>
+                        <textarea id="message" name="emailcontent" cols="45" rows="8"></textarea>
+                    </div>
+
+                    <input id="send" type="submit">
+
+                    <input id="reset" type="reset">
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

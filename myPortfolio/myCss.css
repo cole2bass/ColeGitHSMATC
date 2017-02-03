@@ -1,0 +1,230 @@
+body {
+
+    background-color: rgb(135,135,135);
+
+}
+
+#main {
+    margin: 0 auto;
+    padding: 0 auto;
+    width: 90%;
+}
+
+#container {
+
+    background-color: rgb(200, 200, 50);
+    margin-top: 20px;
+    margin-left: 25px;
+    margin-right: 25px;
+    padding: 0 auto;
+    padding-bottom: 25px;
+    text-align: center;
+    border-radius: 20px;
+    box-shadow: 7px 10px 20px rgba(125,125,0,175);
+    overflow: auto;
+
+}
+
+#title {
+    font-size: 3em;
+    color: rgb(255,255,72);
+    text-shadow: 4px 5px 7px rgb(230,230,66);
+}
+
+#listprojects {
+    display: flex;
+    flex-direction: column;
+}
+
+#formDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 0 auto;
+    padding: 0 auto;
+}
+
+#formDiv div {
+    padding: 8px;
+}
+
+#formDiv label {
+    vertical-align: top;
+}
+
+#send {
+    color: goldenrod;
+    background-color: rgb(255, 255, 200);
+    border-collapse: collapse;
+    border-radius: 8px;
+    width: 200px;
+    height: auto;
+    font-size: 26px;
+    border-width:0;
+    box-shadow: 2px 2px 3px rgb(230,230,175);
+}
+
+#reset {
+    color: goldenrod;
+    background-color: rgb(255,255,75);
+    border-radius: 8px;
+    width: 200px;
+    height: auto;
+    font-size: 26px;
+    border-width: 0;
+    box-shadow: 2px 2px 3px rgb(230,230,50);
+}
+
+#navi {
+
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow: hidden;
+    background-color: #cfcf0d;
+    box-shadow: 6px 7px 6px rgb(130, 130, 0);
+    border-radius: 5px;
+
+}
+
+#navi li {
+    float: left;
+}
+
+#navi a {
+    display: block;
+    color: yellow;
+    font-size: 20px;
+    text-align: center;
+    text-shadow: rgb(175,175,0) 2px 2px 4px;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+#navi a:hover {
+    background-color: #afaf00;
+    opacity: .4;
+}
+
+#homePage #homeLink{
+    background-color: #afaf00;
+    opacity: .4;
+}
+
+#contactPage #contactLink{
+    background-color: #afaf00;
+    opacity: .4;
+}
+
+#portfolioPage #portfolioLink{
+    background-color: #afaf00;
+    opacity: .4;
+}
+
+#resumePage #resumeLink{
+    background-color: #afaf00;
+    opacity: .4;
+}
+
+
+.project {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: rgb(225, 225, 50)
+}
+
+.project img {
+    margin-top: 10px;
+}
+
+p {
+
+    font-size: 26px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 15px;
+    text-align: left;
+
+}
+
+img {
+    float: left;
+    box-shadow: 4px 4px 10px rgb(150, 150, 0);
+    margin: 0 20px 35px 10px;
+}
+
+
+
+h1 {
+
+    font-size: 5em;
+    text-align: center;
+    text-shadow: rgb(190,190,0) 2px 2px 25px;
+    color: rgb(240,240,0);
+
+}
+
+h2 {
+    font-size: 3em;
+}
+
+
+h3 {
+    font-size: 2em;
+}
+
+li {
+
+    list-style-type: none;
+
+}
+
+form label {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+input {
+    width: 300px;
+    font-size: 16px;
+    border-width: 5px;
+}
+
+input:invalid {
+    border-color: red;
+}
+
+input:valid{
+    border-color: green;
+}
+
+textarea {
+    font-size: 24px;
+}
+
+embed {
+    width: 90%;
+    height: 500px;
+}
+
+.paragraph::first-letter {
+    font-size: 200%;
+    font-weight: bold;
+    color: #ECEC64;
+    text-shadow: rgb(120, 120, 50) 4px -1px 16px;
+}
+
+#container a {
+    color: #EE0;
+    text-decoration: none;
+    font-size: 2em;
+    text-shadow: 2px 3px 10px goldenrod;
+}
+
+#container a:hover {
+    background-color: #AA0;
+}
