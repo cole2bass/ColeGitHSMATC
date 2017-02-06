@@ -1,0 +1,42 @@
+body {
+
+    background-color: darkkhaki;
+
+}
+
+#topContainer {
+
+    width: 90%;
+    margin: 0 auto;
+    background-color: deepskyblue;
+    text-align: center;
+    font-size: 25px;
+
+}
+
+#navigation {
+    background-color: orange;
+    display: flex;
+    justify-content: space-around;
+}
+
+#navigation a {
+    text-decoration: none;
+    color: darkgreen;
+}
+
+.pos1 {
+    position: relative;
+    width: 100%;
+    left: 124px;
+    height: 160px;
+    background-color: rgba(255, 235, 59, 0.78);
+}
+
+.pos2 {
+    position: relative;
+    width: 100%;
+    left: 124px;
+    height: 160px;
+    background-color: rgba(255, 235, 59, 0.78);
+}

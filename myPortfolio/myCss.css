@@ -47,7 +47,6 @@ li {
 
 form label {
     font-weight: bold;
-    font-size: 25px;
     vertical-align: top;
     color: yellow;
     font-size: 30px;
@@ -55,8 +54,8 @@ form label {
 }
 
 input {
-    width: 300px;
-    font-size: 16px;
+    width: 345px;
+    font-size: 20px;
     border-width: 5px;
 }
 
@@ -93,7 +92,13 @@ div {
     width: 200px;
     height: auto;
     font-size: 26px;
-    border-width:0;
+    border-width: 0;
+}
+
+.buttonDiv {
+    position: relative;
+    top: 5px;
+    left: 35px;
 }
 
 .project {
@@ -194,10 +199,6 @@ div {
     justify-content: space-around;
     margin: 0 auto;
     padding: 0 auto;
-}
-
-#formDiv div {
-    padding: 8px;
 }
 
 #listprojects {
