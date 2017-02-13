@@ -6,12 +6,6 @@
     100% {left: 0}
 }
 
-@keyframes littleAnimation {
-    0% {transform: matrix(1,0,0,1,0,0) }
-    50% {transform: matrix(2,180deg,-180deg,2,0,0)}
-    100% {transform: matrix(1,360deg,-360deg,1,0,0)}
-}
-
 body {
 
     background-color: rgb(135,135,135);
@@ -44,7 +38,7 @@ p {
     padding-right: 30px;
     padding-bottom: 15px;
     text-align: left;
-    transition: all .4s;
+    transition: all 3s;
 
 }
 
@@ -52,6 +46,7 @@ img {
     float: left;
     box-shadow: 4px 4px 10px rgb(150, 150, 0);
     margin: 0 20px 35px 10px;
+    width: 400px;
 }
 
 li {
@@ -116,12 +111,24 @@ div {
     left: 35px;
 }
 
+.container {
+
+    background-color: rgb(200, 200, 50);
+    margin-top: 20px;
+    width: 95%;
+    padding-bottom: 25px;
+    text-align: center;
+    border-radius: 20px;
+    box-shadow: 7px 10px 20px rgba(125,125,0,175);
+    overflow: auto;
+
+}
+
 .project {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
     background-color: rgb(225, 225, 50);
     box-shadow: 5px 6px 15px rgb(175,175,45);
+    padding: 30px;
+    margin: 20px auto;
 }
 
 .project img {
@@ -134,8 +141,6 @@ div {
     box-shadow: 7px 7px 15px rgba(215,215,100,0.95);
     color: darkred;
     text-shadow: 2px 2px 5px rgba(236,200,200,0.8);
-    text-indent: 20px;
-    padding: 20px;
 }
 
 .paragraph::first-letter {
@@ -145,25 +150,15 @@ div {
     text-shadow: rgb(120, 120, 50) 4px -1px 16px;
 }
 
+.thumbnail {
+    background-color: yellow;
+    border-color: rgb(200,200,0);
+}
+
 #main {
     margin: 0 auto;
     padding: 0 auto;
     width: 90%;
-}
-
-#container {
-
-    background-color: rgb(200, 200, 50);
-    margin-top: 20px;
-    margin-left: 25px;
-    margin-right: 25px;
-    padding: 0 auto;
-    padding-bottom: 25px;
-    text-align: center;
-    border-radius: 20px;
-    box-shadow: 7px 10px 20px rgba(125,125,0,175);
-    overflow: auto;
-
 }
 
 #container a {
@@ -185,7 +180,6 @@ div {
     margin: 0;
     padding: 0;
     width: 100%;
-    height: 50px;
     overflow: hidden;
     background-color: #cfcf0d;
     box-shadow: 6px 7px 6px rgb(130, 130, 0);

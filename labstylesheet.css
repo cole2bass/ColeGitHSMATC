@@ -6,7 +6,7 @@ body {
 
 #topContainer {
 
-    width: 90%;
+    width: 60%;
     margin: 0 auto;
     background-color: deepskyblue;
     text-align: center;
@@ -25,18 +25,18 @@ body {
     color: darkgreen;
 }
 
-.pos1 {
+.pos{
     position: relative;
     width: 100%;
-    left: 124px;
-    height: 160px;
+    height: 200px;
+}
+
+.pos1 {
+    left: 170px;
     background-color: rgba(255, 235, 59, 0.78);
 }
 
 .pos2 {
-    position: relative;
-    width: 100%;
-    left: 124px;
-    height: 160px;
+    right: 124px;
     background-color: rgba(255, 235, 59, 0.78);
 }
