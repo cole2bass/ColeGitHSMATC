@@ -1,0 +1,67 @@
+
+body {
+    background-image: url("../img/golfball.jpg");
+    background-size: cover;
+}
+
+thead {
+    background-color: bisque;
+}
+
+table.table.playerTable {
+    background-color: rgba(0,0,0,0);
+    width: 102.5%;
+    margin-left: -8px;
+    max-width: 120%
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.85);
+    margin: 50px auto;
+    border-radius: 20px;
+}
+
+.modalRemove {
+    display: block;
+    color: coral;
+    text-decoration: none;
+}
+.modalRemove:hover {
+    color: rgb(230, 150, 150);
+    text-decoration: none;
+}
+.modalRemove:focus {
+    color: rgb(230, 150, 150);
+    text-decoration: none;
+}
+
+.player {
+    background-color: orange;
+}
+
+.playerList {
+    width: 100%;
+    padding: 9px;
+    margin: -10px;
+}
+.playerTable {
+    margin-bottom: 0;
+}
+
+.playerToAdd span{
+    display: inline-block;
+    padding: 10px;
+}
+
+#addPlayerList label {
+    padding: 8px;
+
+}
+
+#golfcardBody1>tr>td>.playerList>table>tbody>tr>td {
+    padding-left: 5px;
+}
+
+#selectCourse {
+    margin: 10px;
+}
