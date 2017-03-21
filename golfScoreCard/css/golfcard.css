@@ -76,9 +76,10 @@ div.row {
 }
 
 div.row div.cell:first-child {
-    width: 33%;
+    width: 20%;
     font-weight: bold;
     font-size: 18px;
+    max-width: 45%;
 }
 
 .totalDiv {
