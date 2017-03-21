@@ -4,21 +4,19 @@ body {
     background-size: cover;
 }
 
-thead {
-    background-color: bisque;
-}
-
-table.table.playerTable {
-    background-color: rgba(0,0,0,0);
-    width: 102.5%;
-    margin-left: -8px;
-    max-width: 120%
+.cell {
+    width: 10%;
 }
 
 .container {
     background-color: rgba(255, 255, 255, 0.85);
     margin: 50px auto;
     border-radius: 20px;
+}
+
+.holeRow {
+    background-color: rgb(255,225,0);
+    font-weight: bold;
 }
 
 .modalRemove {
@@ -35,8 +33,16 @@ table.table.playerTable {
     text-decoration: none;
 }
 
+.parRow {
+    background-color: orange;
+}
+
 .player {
     background-color: orange;
+}
+
+.playerLabel {
+    font-size: 24px;
 }
 
 .playerList {
@@ -53,13 +59,49 @@ table.table.playerTable {
     padding: 10px;
 }
 
+.rowContainer {
+    margin-top: 10px;
+    margin-bottom: 8px;
+    border-style: solid;
+    border-bottom-width: 1px;
+}
+
+div.row {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    padding: 8px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+div.row div.cell:first-child {
+    width: 33%;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.totalDiv {
+    margin-left: 20px;
+    margin-bottom: 30px;
+}
+
+.yardageRow {
+    background-color: rgb(255,255,133);
+}
+
 #addPlayerList label {
     padding: 8px;
 
 }
 
-#golfcardBody1>tr>td>.playerList>table>tbody>tr>td {
-    padding-left: 5px;
+#topTitle {
+    color: darkorange;
+    font-family: 'Playfair Display', serif;
+    font-size: 65px;
+    margin: 20px auto;
+    margin-top: 40px;
+    text-align: center;
 }
 
 #selectCourse {

@@ -3,6 +3,13 @@ var players = [];
 var count = 1;
 // Add a Player Object and make the context like this: {name: value of text, score: sum of score}
 
+function Player(name, teeType) {
+    this.name = name;
+    this.score = 0;
+    this.teeType = teeType;
+
+}
+
 function addPlayerToAdd() {
 
     var modalAddtoAddList = document.getElementById("addPlayerList");
@@ -15,7 +22,9 @@ function addPlayerToAdd() {
 
     modalAddtoAddList.innerHTML += "<div id='playerAdding"+count+"' class='playerToAdd'>" +
 
-        "<label>Add New Player:</label><input type='text' name='addPlayer'><span><a href='#' class='modalRemove glyphicon glyphicon-remove' onclick='removePlayerToAdd(" + count+ ")'></a></span>"+
+        "<label>Add New Player:</label><input type='text' name='addPlayer'>"+
+        "<span> <select class='teeType'></select>"+
+        "<a href='#' class='modalRemove glyphicon glyphicon-remove' onclick='removePlayerToAdd(" + count+ ")'></a></span>"+
 
         "</div>"
 
@@ -75,50 +84,22 @@ function addPlayers() {
 
         var name = elements[i].getElementsByTagName("input")[0].value;
         if (name != ""){
+            var player = new Player();
             players.push(name);
         }
 
     }
 
-    var playerList1 = document.querySelectorAll(".playerList table tbody")[0], playerList2 = document.querySelectorAll(".playerList table tbody")[1];
+    var playerList1 = document.querySelectorAll("div.playerContainer")[0], playerList2 = document.querySelectorAll("div.playerContainer")[1];
     var totalTable = document.getElementById("totalTable");
     playerList1.innerHTML = "";
     playerList2.innerHTML = "";
-    totalTable.opacity = "1";
-    var totalHead = document.getElementById("playerTotalHead");
-    var totalBody = document.getElementById("playerTotalBody");
-    totalHead.innerHTML = "";
-    totalBody.innerHTML = "";
     generateHTML();
+    //Make lines less complicated, add player rows then later add the players.
+    var numPlayer = 1;
     for (var i = 0; i < players.length; i++) {
-        playerList1.innerHTML += "<tr class='player'>" +
-            "<td> " + players[i] +
-            "</td>" +
-            "<td>0</td>" +
-            "<td>0</td>" +
-            "<td>0</td>" +
-            "<td>0</td>" +
-            "<td>0</td>" +
-            "<td>0</td>" +
-            "<td>0</td>" +
-            "<td>0</td>" +
-            "<td>0</td>" +
-            "<td>0</td>" +
-            "</tr>";
-        playerList2.innerHTML += "<tr class='player'>" +
-            "<td> " + players[i] +
-            "</td>" +
-            "<td>0</td>" +
-            "<td>0</td>" +
-            "<td>0</td>" +
-            "<td>0</td>" +
-            "<td>0</td>" +
-            "<td>0</td>" +
-            "<td>0</td>" +
-            "<td>0</td>" +
-            "<td>0</td>" +
-            "<td>0</td>" +
-            "</tr>";
+        playerList1.innerHTML += "<div class='player'></div>"
+        playerList2.innerHTML += "<div class='player'></div>"
     }
 
     var addPlayerList = document.getElementById("addPlayerList");

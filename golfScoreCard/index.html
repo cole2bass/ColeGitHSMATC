@@ -1,0 +1,284 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Golf Scorecard</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="css/golfcard.css">
+
+    <script
+            src="https://code.jquery.com/jquery-3.2.0.min.js"
+            integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I="
+            crossorigin="anonymous"></script>
+
+    <script src="js/ajax.js"></script>
+
+    <script src="js/golfcard.js"></script>
+
+</head>
+<body onload="getData()">
+<div class="container">
+
+    <h1 id="topTitle">Golf Scorecard</h1>
+
+    <div id="courseSelContainer">
+
+        <select title="courseSelect" id="selectCourse" onchange="updateCard(value)"></select>
+
+    </div>
+
+    <div class="card">
+
+        <div>
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active" id="frontTab"><a href="#front" aria-controls="front" role="tab" data-toggle="tab">Front</a></li>
+                <li role="presentation" id="backTab"><a href="#back" aria-controls="back" role="tab" data-toggle="tab">Back</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="front">
+
+                    <div class="rowContainer">
+                        <div class="row holeRow">
+
+                            <div class="cell">Hole</div>
+                            <div class="cell">1</div>
+                            <div class="cell">2</div>
+                            <div class="cell">3</div>
+                            <div class="cell">4</div>
+                            <div class="cell">5</div>
+                            <div class="cell">6</div>
+                            <div class="cell">7</div>
+                            <div class="cell">8</div>
+                            <div class="cell">9</div>
+                            <div class="cell">Out</div>
+
+                        </div>
+
+                        <div class="row yardageRow">
+                            <div class="cell">Yardage</div>
+                            <div class="cell yards">0</div>
+                            <div class="cell yards">0</div>
+                            <div class="cell yards">0</div>
+                            <div class="cell yards">0</div>
+                            <div class="cell yards">0</div>
+                            <div class="cell yards">0</div>
+                            <div class="cell yards">0</div>
+                            <div class="cell yards">0</div>
+                            <div class="cell yards">0</div>
+                            <div class="totalYardage" class="cell">0</div>
+                        </div>
+
+                        <div class="row parRow">
+
+                            <div class="cell">Par</div>
+                            <div class="cell par">0</div>
+                            <div class="cell par">0</div>
+                            <div class="cell par">0</div>
+                            <div class="cell par">0</div>
+                            <div class="cell par">0</div>
+                            <div class="cell par">0</div>
+                            <div class="cell par">0</div>
+                            <div class="cell par">0</div>
+                            <div class="cell par">0</div>
+                            <div class="parOut" class="cell">0</div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="playerLabel cell">
+                        Players
+                    </div>
+
+                    <div class="playerContainer">
+
+                    </div>
+
+
+                    <div class="buttonRow">
+
+                        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addPlayer">
+                            Add Player
+                        </button>
+
+                        <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#deletePlayer">Delete Player</button>
+
+                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal">Update Score</button>
+
+
+                    </div>
+
+                </div>
+                <div role="tabpanel" class="tab-pane" id="back">
+
+
+                    <div class="rowContainer">
+                        <div class="row holeRow">
+
+                            <div class="cell rowLabel">Hole</div>
+                            <div class="cell">10</div>
+                            <div class="cell">11</div>
+                            <div class="cell">12</div>
+                            <div class="cell">13</div>
+                            <div class="cell">14</div>
+                            <div class="cell">15</div>
+                            <div class="cell">16</div>
+                            <div class="cell">17</div>
+                            <div class="cell">18</div>
+                            <div class="cell">In</div>
+
+                        </div>
+
+                        <div class="row yardageRow">
+                            <div id="yardageTitle" class="cell">Yardage</div>
+                            <div class="cell yards">0</div>
+                            <div class="cell yards">0</div>
+                            <div class="cell yards">0</div>
+                            <div class="cell yards">0</div>
+                            <div class="cell yards">0</div>
+                            <div class="cell yards">0</div>
+                            <div class="cell yards">0</div>
+                            <div class="cell yards">0</div>
+                            <div class="cell yards">0</div>
+                            <div class="totalYardage" class="cell">0</div>
+                        </div>
+
+                        <div class="row parRow">
+
+                            <div class="cell">Par</div>
+                            <div class="cell par">0</div>
+                            <div class="cell par">0</div>
+                            <div class="cell par">0</div>
+                            <div class="cell par">0</div>
+                            <div class="cell par">0</div>
+                            <div class="cell par">0</div>
+                            <div class="cell par">0</div>
+                            <div class="cell par">0</div>
+                            <div class="cell par">0</div>
+                            <div class="parOut" class="cell">0</div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="playerLabel cell">
+                        Players
+                    </div>
+
+                    <div class="playerContainer">
+
+                    </div>
+
+
+                    <div class="buttonRow">
+
+                        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addPlayer">
+                            Add Player
+                        </button>
+
+                        <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#deletePlayer">Delete Player</button>
+
+                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal">Update Score</button>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="totalDiv">
+
+        <h3 id="totalLabel" class="cell">Player Total:</h3>
+
+        <div id="totalNameRow"> No Players</div>
+
+        <div id="totalScoreRow">No Score</div>
+
+        <div id="totalParLabel" class="cell">Par Total: </div>
+
+        <div id="parTotal">0</div>
+
+    </div>
+
+</div>
+
+<div class="modal fade" id="addPlayer" tabindex="-1" role="dialog" aria-labelledby="addPlayerLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="addPlayerLabel">Add Player</h4>
+            </div>
+            <div class="modal-body">
+
+                <div id="addPlayerList">
+
+                    <div class="playerToAdd">
+
+                        <label>Add New Player:</label><input title="name" type="text" name="addPlayer">
+                        <!-- Add a select tag to select different tee types -->
+
+                    </div>
+
+                </div>
+
+                <button type="button" id="addPlayerAddList" class="btn btn-default" onclick="addPlayerToAdd()">Add New Player to Add</button>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="addPlayersButton" data-dismiss="modal" onclick="addPlayers()" class="btn btn-primary">Add Players</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deletePlayer" tabindex="-1" role="dialog" aria-labelledby="deletePlayerLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="deletePlayerLabel">Delete Player</h4>
+            </div>
+            <div class="modal-body">
+
+                <div id="boot">
+
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button"  class="btn btn-danger">Delete Players</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+</html>
