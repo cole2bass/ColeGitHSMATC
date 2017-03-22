@@ -49,21 +49,13 @@ function updateCard(id) {
                     var data = JSON.parse(xhttp.responseText);
                     courseSelected = data.course;
                     console.log(courseSelected)
+                    updateMapData(courseSelected);
                 }
 
-                xhttp.open("GET", "https://golf-courses-api.herokuapp.com/courses/"+course.id, true);
-
-                var body = {
-
-                    latitude: 40.4196423,
-                    longitude: -111.8866683,
-                    radius: 48.2803
-
-                };
-
-                xhttp.send(JSON.stringify(body));
-
             };
+            xhttp.open("GET", "https://golf-courses-api.herokuapp.com/courses/"+course.id, true);
+
+            xhttp.send();
             return;
         }
 

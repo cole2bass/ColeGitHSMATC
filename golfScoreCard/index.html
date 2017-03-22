@@ -19,7 +19,13 @@
             integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I="
             crossorigin="anonymous"></script>
 
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWibKgS_OKd0IXSwKKF49-quv520kgplk&callback=initMap">
+    </script>
+
     <script src="js/ajax.js"></script>
+
+    <script src="js/map.js"></script>
 
     <script src="js/golfcard.js"></script>
 
@@ -52,32 +58,33 @@
                     <div class="rowContainer">
                         <div class="row holeRow">
 
+                            <!-- Put onclick attribute on the <a> tags and pass data to map. -->
                             <div class="cell">Hole</div>
-                            <div class="cell">1</div>
-                            <div class="cell">2</div>
-                            <div class="cell">3</div>
-                            <div class="cell">4</div>
-                            <div class="cell">5</div>
-                            <div class="cell">6</div>
-                            <div class="cell">7</div>
-                            <div class="cell">8</div>
-                            <div class="cell">9</div>
+                            <div class="cell"><a href="#map">1</a></div>
+                            <div class="cell"><a href="#map">2</a></div>
+                            <div class="cell"><a href="#map">3</a></div>
+                            <div class="cell"><a href="#map">4</a></div>
+                            <div class="cell"><a href="#map">5</a></div>
+                            <div class="cell"><a href="#map">6</a></div>
+                            <div class="cell"><a href="#map">7</a></div>
+                            <div class="cell"><a href="#map">8</a></div>
+                            <div class="cell"><a href="#map">9</a></div>
                             <div class="cell">Out</div>
 
                         </div>
 
                         <div class="row yardageRow">
-                            <div class="cell">Yardage</div>
-                            <div class="cell yards">0</div>
-                            <div class="cell yards">0</div>
-                            <div class="cell yards">0</div>
-                            <div class="cell yards">0</div>
-                            <div class="cell yards">0</div>
-                            <div class="cell yards">0</div>
-                            <div class="cell yards">0</div>
-                            <div class="cell yards">0</div>
-                            <div class="cell yards">0</div>
-                            <div class="totalYardage" class="cell">0</div>
+                            <div class="labelText col-sm-1 col-xs-12">Yardage</div>
+                            <div class="yards col-sm-1 col-xs-12">0</div>
+                            <div class="yards col-sm-1 col-xs-12">0</div>
+                            <div class="yards col-sm-1 col-xs-12">0</div>
+                            <div class="yards col-sm-1 col-xs-12">0</div>
+                            <div class="yards col-sm-1 col-xs-12">0</div>
+                            <div class="yards col-sm-1 col-xs-12">0</div>
+                            <div class="yards col-sm-1 col-xs-12">0</div>
+                            <div class="yards col-sm-1 col-xs-12">0</div>
+                            <div class="yards col-sm-1 col-xs-12">0</div>
+                            <div class="totalYardage col-sm-1 col-xs-12">0</div>
                         </div>
 
                         <div class="row parRow">
@@ -92,7 +99,23 @@
                             <div class="cell par">0</div>
                             <div class="cell par">0</div>
                             <div class="cell par">0</div>
-                            <div class="parOut" class="cell">0</div>
+                            <div class="parOut cell">0</div>
+
+                        </div>
+
+                        <div class="row handyRow">
+
+                            <div class="cell">Handicap</div>
+                            <div class="cell handy">0</div>
+                            <div class="cell handy">0</div>
+                            <div class="cell handy">0</div>
+                            <div class="cell handy">0</div>
+                            <div class="cell handy">0</div>
+                            <div class="cell handy">0</div>
+                            <div class="cell handy">0</div>
+                            <div class="cell handy">0</div>
+                            <div class="cell handy">0</div>
+                            <div class="totalHandy cell">0</div>
 
                         </div>
 
@@ -127,16 +150,17 @@
                     <div class="rowContainer">
                         <div class="row holeRow">
 
+                            <!-- Put onclick attribute on the <a> tags and pass data to map. -->
                             <div class="cell rowLabel">Hole</div>
-                            <div class="cell">10</div>
-                            <div class="cell">11</div>
-                            <div class="cell">12</div>
-                            <div class="cell">13</div>
-                            <div class="cell">14</div>
-                            <div class="cell">15</div>
-                            <div class="cell">16</div>
-                            <div class="cell">17</div>
-                            <div class="cell">18</div>
+                            <div class="cell"><a href="#map">10</a></div>
+                            <div class="cell"><a href="#map">11</a></div>
+                            <div class="cell"><a href="#map">12</a></div>
+                            <div class="cell"><a href="#map">13</a></div>
+                            <div class="cell"><a href="#map">14</a></div>
+                            <div class="cell"><a href="#map">15</a></div>
+                            <div class="cell"><a href="#map">16</a></div>
+                            <div class="cell"><a href="#map">17</a></div>
+                            <div class="cell"><a href="#map">18</a></div>
                             <div class="cell">In</div>
 
                         </div>
@@ -152,7 +176,7 @@
                             <div class="cell yards">0</div>
                             <div class="cell yards">0</div>
                             <div class="cell yards">0</div>
-                            <div class="totalYardage" class="cell">0</div>
+                            <div class="totalYardage cell">0</div>
                         </div>
 
                         <div class="row parRow">
@@ -167,7 +191,23 @@
                             <div class="cell par">0</div>
                             <div class="cell par">0</div>
                             <div class="cell par">0</div>
-                            <div class="parOut" class="cell">0</div>
+                            <div class="parOut cell">0</div>
+
+                        </div>
+
+                        <div class="row handyRow">
+
+                            <div class="cell">Handicap</div>
+                            <div class="cell par">0</div>
+                            <div class="cell par">0</div>
+                            <div class="cell par">0</div>
+                            <div class="cell par">0</div>
+                            <div class="cell par">0</div>
+                            <div class="cell par">0</div>
+                            <div class="cell par">0</div>
+                            <div class="cell par">0</div>
+                            <div class="cell par">0</div>
+                            <div class="parOut cell">0</div>
 
                         </div>
 
@@ -202,17 +242,21 @@
 
     <div class="totalDiv">
 
-        <h3 id="totalLabel" class="cell">Player Total:</h3>
+        <h3 id="totalLabel">Player Total:</h3>
 
-        <div id="totalNameRow"> No Players</div>
+        <div id="totalNameRow" class="row"> No Players</div>
 
-        <div id="totalScoreRow">No Score</div>
+        <div id="totalScoreRow" class="row">No Score</div>
 
-        <div id="totalParLabel" class="cell">Par Total: </div>
+        <h3 id="totalParLabel">Par Total: </h3>
 
         <div id="parTotal">0</div>
 
     </div>
+
+    <h3 id="mapLabel">The Map</h3>
+
+    <div id="map"></div>
 
 </div>
 
@@ -223,18 +267,28 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="addPlayerLabel">Add Player</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id="addPlayerBody">
 
-                <div id="addPlayerList">
+                <div class="alert alert-danger">Please put in another name!</div>
 
-                    <div class="playerToAdd">
+                <div class="alert alert-danger">Don't put in the same name!</div>
 
-                        <label>Add New Player:</label><input title="name" type="text" name="addPlayer">
-                        <!-- Add a select tag to select different tee types -->
+                <div class="playerToAdd">
 
-                    </div>
+                    <label>Add New Player:</label>
+                    <input title="name" type="text" name="addPlayer">
+                    <select class="selectTee">
+                        <option selected>Select a Tee Type Please</option>
+                        <option>Pro</option>
+                        <option>Champion</option>
+                        <option>Men</option>
+                        <option>Women</option>
+                        <!-- <option>Select a Tee Type Please</option> -->
+                    </select>
 
                 </div>
+
+                <div id="addPlayerList"></div>
 
                 <button type="button" id="addPlayerAddList" class="btn btn-default" onclick="addPlayerToAdd()">Add New Player to Add</button>
 
@@ -275,7 +329,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="updateScoreLabel">Delete Player</h4>
+                <h4 class="modal-title" id="updateScoreLabel">Update Score</h4>
             </div>
             <div class="modal-body">
 

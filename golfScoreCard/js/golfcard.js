@@ -12,27 +12,79 @@ function Player(name, teeType) {
 
 function addPlayerToAdd() {
 
-    var modalAddtoAddList = document.getElementById("addPlayerList");
-    var inputList = modalAddtoAddList.getElementsByTagName("input");
+    var addPlayerList = document.getElementById("addPlayerList");
+    var inputList = addPlayerList.getElementsByTagName("input");
     var names = [];
+    //Use the following variables
+    var before = 0;
+    var after = 0;
 
     for (var i = 0; i < inputList.length; i++) {
-        names.push(inputList[i].value)
+        if (inputList[i].value != "") {
+            names.push(inputList[i].value)
+        }
     }
 
-    modalAddtoAddList.innerHTML += "<div id='playerAdding"+count+"' class='playerToAdd'>" +
+    before = $(".playerToAdd").length;
 
-        "<label>Add New Player:</label><input type='text' name='addPlayer'>"+
-        "<span> <select class='teeType'></select>"+
-        "<a href='#' class='modalRemove glyphicon glyphicon-remove' onclick='removePlayerToAdd(" + count+ ")'></a></span>"+
+    addPlayerList = document.getElementById("addPlayerList");
+
+    addPlayerList.innerHTML = "<div class='playerToAdd'>" +
+        "<label>Add New Player</label> <input type='text' name='addPlayer'><select class='selectTee'>"+
+        "<option selected>Select a Tee Type Please</option>"+
+        "<option>Pro</option>"+
+        "<option>Champion</option>"+
+        "<option>Men</option>"+
+        "<option>Women</option>"+
+        "<!-- <option>Select a Tee Type Please</option> -->"+
+        "</select>" +
+        "</div>";
+
+    for (var i = 1; i < names.length; i++) {
+        addPlayerList.innerHTML += "<div id='playerAdding" + count + "' class='playerToAdd'>" +
+            "<label>Add New Player</label> <input type='text' name='addPlayer'><select class='selectTee'>" +
+            "<option selected>Select a Tee Type Please</option>" +
+            "<option>Pro</option>" +
+            "<option>Champion</option>" +
+            "<option>Men</option>" +
+            "<option>Women</option>" +
+            "<!-- <option>Select a Tee Type Please</option> -->" +
+            "</select>" +
+            "<span>" +
+            "<a href='#' class='modalRemove glyphicon glyphicon-remove' onclick='removePlayerToAdd(" + count + ")'></a></span>" +
+
+            "</div>"
+        count++;
+    }
+
+
+    addPlayerList.innerHTML += "<div id='playerAdding" + count + "' class='playerToAdd'>" +
+        "<label>Add New Player</label> <input type='text' name='addPlayer'><select class='selectTee'>" +
+        "<option selected>Select a Tee Type Please</option>" +
+        "<option>Pro</option>" +
+        "<option>Champion</option>" +
+        "<option>Men</option>" +
+        "<option>Women</option>" +
+        "<!-- <option>Select a Tee Type Please</option> -->" +
+        "</select>" +
+        "<span>" +
+        "<a href='#' class='modalRemove glyphicon glyphicon-remove' onclick='removePlayerToAdd(" + count + ")'></a></span>" +
 
         "</div>"
 
-    for (var i = 0; i < inputList.length - 1; i++) {
-        inputList[i].value = names[i];
+    after = $(".playerToAdd").length;
+
+    if (before == after) {
+        $("#addPlayerBody").prepend("")
     }
 
-    count++;
+    for (var i = 0; i < inputList.length - 1; i++) {
+        if (names[i] != undefined) {
+            inputList[i].value = names[i];
+        }
+    }
+
+    count = 1;
 
 }
 
@@ -44,9 +96,9 @@ function removePlayerToAdd(index) {
     var names = [];
     var idList = [];
     var toDelete = element.id;
-    var inputList = document.getElementById("addPlayerList").getElementsByTagName("input");
+    var inputList = addList.getElementsByTagName("input");
 
-    for (var i = 0; i < playerToAdd.length; i++) {
+    for (var i = 0; i < inputList.length; i++) {
         names.push(inputList[i].value);
         if (i > 0) {
             idList.push(playerToAdd[i].id);
@@ -79,13 +131,14 @@ function removePlayerToAdd(index) {
 function addPlayers() {
 
     var elements = document.getElementsByClassName("playerToAdd");
+    var selectTee = $(".selectTee")
 
     for (var i = 0; i < elements.length; i++) {
 
         var name = elements[i].getElementsByTagName("input")[0].value;
         if (name != ""){
-            var player = new Player();
-            players.push(name);
+            var player = new Player(name, selectTee[i].value);
+            players.push(player);
         }
 
     }
@@ -94,35 +147,61 @@ function addPlayers() {
     var totalTable = document.getElementById("totalTable");
     playerList1.innerHTML = "";
     playerList2.innerHTML = "";
-    generateHTML();
     //Make lines less complicated, add player rows then later add the players.
     var numPlayer = 1;
     for (var i = 0; i < players.length; i++) {
-        playerList1.innerHTML += "<div class='player'></div>"
-        playerList2.innerHTML += "<div class='player'></div>"
+        playerList1.innerHTML += "<div class='player row'></div>"
+        playerList2.innerHTML += "<div class='player row'></div>"
+    }
+    var players1 = playerList1.getElementsByClassName("player");
+    var players2 = playerList2.getElementsByClassName("player");
+
+    for (var i = 0; i < players.length; i++) {
+
+        players1[i].innerHTML = "<div class='cell'>" + players[i].name + "</div>";
+        players2[i].innerHTML = "<div class='cell'> " + players[i].name + "</div>";
+
+        for (var j = 0; j < 9; j++) {
+            players1[i].innerHTML += "<div class='cell points'>0</div>";
+            players2[i].innerHTML += "<div class='cell points'>0</div>";
+        }
+        players1[i].innerHTML += "<div class='cell totalOut'>0</div>";
+        players2[i].innerHTML += "<div class='cell totalIn'>0</div>";
     }
 
     var addPlayerList = document.getElementById("addPlayerList");
     addPlayerList.innerHTML = "<div class='playerToAdd'>" +
-        "<label>Add New Player</label> <input type='text' name='addPlayer'>" +
+        "<label>Add New Player</label> <input type='text' name='addPlayer'><select class='selectTee'>"+
+    "<option selected>Select a Tee Type Please</option>"+
+    "<option>Pro</option>"+
+    "<option>Champion</option>"+
+    "<option>Men</option>"+
+    "<option>Women</option>"+
+    "<!-- <option>Select a Tee Type Please</option> -->"+
+    "</select>" +
         "</div>";
-    count = 0;
+    count = 1;
 
-    function generateHTML() {
+    updatePlayers();
 
-        var headHTML = "", bodyHTML = "";
-        headHTML += "<tr>";
-        bodyHTML += "<tr>";
-        for (var i = 0; i < players.length; i++){
-            headHTML += "<td>" + players[i] + "</td>";
-            bodyHTML += "<td>0</td>";
+}
+
+function updatePlayers() {
+
+    $(".player").removeClass("type1");
+    $(".player").removeClass("type2");
+    var playerList = $(".player")
+
+    for (var i = 0; i < playerList.length; i++) {
+        if (i % 2 == 0) {
+            playerList[i].setAttribute("class", playerList[i].getAttribute("class") + " type1");
         }
-        headHTML += "</tr>";
-        bodyHTML += "</tr>";
-        totalHead.innerHTML += headHTML;
-        totalBody.innerHTML += bodyHTML;
-
+        else {
+            playerList[i].setAttribute("class", playerList[i].getAttribute("class") + " type2");
+        }
     }
+
+
 
 
 }
