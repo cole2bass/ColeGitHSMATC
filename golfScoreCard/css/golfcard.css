@@ -1,4 +1,30 @@
 
+@media (max-width: 768px) {
+    .showXS {
+        display: block;
+    }
+
+    .labelText {
+        text-align: center;
+    }
+
+    .noShow {
+        display: none;
+    }
+
+    .holeRow>div {
+        text-align: center;
+        padding: 12px;
+    }
+
+}
+
+@media (min-width: 769px) {
+    .showXS {
+        display: none;
+    }
+}
+
 body {
     background-image: url("../img/golfball.jpg");
     background-size: cover;
@@ -6,6 +32,13 @@ body {
 
 .cell {
     width: 10%;
+}
+
+.cellLabel {
+    text-align: right;
+    position: relative;
+    right: 20px;
+    font-weight: bold;
 }
 
 .container {
@@ -25,7 +58,7 @@ body {
 
 .labelText {
     font-weight: bold;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 .modalRemove {
@@ -40,6 +73,13 @@ body {
 .modalRemove:focus {
     color: rgb(230, 150, 150);
     text-decoration: none;
+}
+
+div.row {
+    border-style: solid;
+    border-width: 1px;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .parRow {
@@ -75,6 +115,14 @@ body {
 .playerToAdd span{
     display: inline-block;
     padding: 10px;
+}
+
+.playerToAdd {
+    margin-left: 18px;
+}
+
+#addPlayerList>div.playerToAdd {
+    margin-left: 10px;
 }
 
 .rowContainer {

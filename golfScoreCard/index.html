@@ -39,6 +39,18 @@
 
         <select title="courseSelect" id="selectCourse" onchange="updateCard(value)"></select>
 
+        <button type="button" onclick="getCourseGeoLocation()">Reset Location</button>
+
+    </div>
+    <div id="yardsOrMeters">
+
+        <select title="selectStandardMeasurement" id="yOrM" onchange="updateMeasRows(value)">
+
+            <option selected value="yards">Yards</option>
+            <option value="meters">Meters</option>
+
+        </select>
+
     </div>
 
     <div class="card">
@@ -59,63 +71,93 @@
                         <div class="row holeRow">
 
                             <!-- Put onclick attribute on the <a> tags and pass data to map. -->
-                            <div class="cell">Hole</div>
-                            <div class="cell"><a href="#map">1</a></div>
-                            <div class="cell"><a href="#map">2</a></div>
-                            <div class="cell"><a href="#map">3</a></div>
-                            <div class="cell"><a href="#map">4</a></div>
-                            <div class="cell"><a href="#map">5</a></div>
-                            <div class="cell"><a href="#map">6</a></div>
-                            <div class="cell"><a href="#map">7</a></div>
-                            <div class="cell"><a href="#map">8</a></div>
-                            <div class="cell"><a href="#map">9</a></div>
-                            <div class="cell">Out</div>
+                            <div class="labelText col-sm-12 col-md-2 col-xs-12">Hole</div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map" onclick="displayHole(/*index*/)">1</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map">2</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map">3</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map">4</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map">5</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map">6</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map">7</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map">8</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map">9</a></div>
+                            <div class="col-sm-1 col-xs-12 noShow">Out</div>
 
                         </div>
 
                         <div class="row yardageRow">
-                            <div class="labelText col-sm-1 col-xs-12">Yardage</div>
-                            <div class="yards col-sm-1 col-xs-12">0</div>
-                            <div class="yards col-sm-1 col-xs-12">0</div>
-                            <div class="yards col-sm-1 col-xs-12">0</div>
-                            <div class="yards col-sm-1 col-xs-12">0</div>
-                            <div class="yards col-sm-1 col-xs-12">0</div>
-                            <div class="yards col-sm-1 col-xs-12">0</div>
-                            <div class="yards col-sm-1 col-xs-12">0</div>
-                            <div class="yards col-sm-1 col-xs-12">0</div>
-                            <div class="yards col-sm-1 col-xs-12">0</div>
-                            <div class="totalYardage col-sm-1 col-xs-12">0</div>
+                            <!-- For a row like this make sure to add something to let people know which data of each "cell" goes to which hole. -->
+                            <div class="labelText col-sm-12 col-md-2 col-xs-12">Yardage</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 1:</div>
+                            <div class="yards col-sm-1 col-xs-6">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 2:</div>
+                            <div class="yards col-sm-1 col-xs-6">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 3:</div>
+                            <div class="yards col-sm-1 col-xs-6">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 4:</div>
+                            <div class="yards col-sm-1 col-xs-6">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 5:</div>
+                            <div class="yards col-sm-1 col-xs-6">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 6:</div>
+                            <div class="yards col-sm-1 col-xs-6">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 7:</div>
+                            <div class="yards col-sm-1 col-xs-6">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 8:</div>
+                            <div class="yards col-sm-1 col-xs-6">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 9:</div>
+                            <div class="yards col-sm-1 col-xs-6">0</div>
+                            <div class="cellLabel showXS col-xs-6">Out:</div>
+                            <div class="totalYardage col-sm-1 col-xs-6">0</div>
                         </div>
 
                         <div class="row parRow">
 
-                            <div class="cell">Par</div>
-                            <div class="cell par">0</div>
-                            <div class="cell par">0</div>
-                            <div class="cell par">0</div>
-                            <div class="cell par">0</div>
-                            <div class="cell par">0</div>
-                            <div class="cell par">0</div>
-                            <div class="cell par">0</div>
-                            <div class="cell par">0</div>
-                            <div class="cell par">0</div>
-                            <div class="parOut cell">0</div>
+                            <div class="labelText col-sm-12 col-md-2 col-xs-12">Par</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 1:</div>
+                            <div class="col-sm-1 col-xs-6 par">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 2:</div>
+                            <div class="col-sm-1 col-xs-6 par">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 3:</div>
+                            <div class="col-sm-1 col-xs-6 par">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 4:</div>
+                            <div class="col-sm-1 col-xs-6 par">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 5:</div>
+                            <div class="col-sm-1 col-xs-6 par">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 6:</div>
+                            <div class="col-sm-1 col-xs-6 par">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 7:</div>
+                            <div class="col-sm-1 col-xs-6 par">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 8:</div>
+                            <div class="col-sm-1 col-xs-6 par">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 9:</div>
+                            <div class="col-sm-1 col-xs-6 par">0</div>
+                            <div class="cellLabel showXS col-xs-6">Out:</div>
+                            <div class="parOut col-sm-1 col-xs-6">0</div>
 
                         </div>
 
                         <div class="row handyRow">
 
-                            <div class="cell">Handicap</div>
-                            <div class="cell handy">0</div>
-                            <div class="cell handy">0</div>
-                            <div class="cell handy">0</div>
-                            <div class="cell handy">0</div>
-                            <div class="cell handy">0</div>
-                            <div class="cell handy">0</div>
-                            <div class="cell handy">0</div>
-                            <div class="cell handy">0</div>
-                            <div class="cell handy">0</div>
-                            <div class="totalHandy cell">0</div>
+                            <div class="labelText  col-sm-12 col-md-2 col-xs-12">Handicap</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 1:</div>
+                            <div class="col-sm-1 col-xs-6 handy">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 2:</div>
+                            <div class="col-sm-1 col-xs-6 handy">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 3:</div>
+                            <div class="col-sm-1 col-xs-6 handy">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 4:</div>
+                            <div class="col-sm-1 col-xs-6 handy">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 5:</div>
+                            <div class="col-sm-1 col-xs-6 handy">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 6:</div>
+                            <div class="col-sm-1 col-xs-6 handy">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 7:</div>
+                            <div class="col-sm-1 col-xs-6 handy">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 8:</div>
+                            <div class="col-sm-1 col-xs-6 handy">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 9:</div>
+                            <div class="col-sm-1 col-xs-6 handy">0</div>
+                            <div class="col-sm-1 col-xs-12"></div>
 
                         </div>
 
@@ -151,63 +193,93 @@
                         <div class="row holeRow">
 
                             <!-- Put onclick attribute on the <a> tags and pass data to map. -->
-                            <div class="cell rowLabel">Hole</div>
-                            <div class="cell"><a href="#map">10</a></div>
-                            <div class="cell"><a href="#map">11</a></div>
-                            <div class="cell"><a href="#map">12</a></div>
-                            <div class="cell"><a href="#map">13</a></div>
-                            <div class="cell"><a href="#map">14</a></div>
-                            <div class="cell"><a href="#map">15</a></div>
-                            <div class="cell"><a href="#map">16</a></div>
-                            <div class="cell"><a href="#map">17</a></div>
-                            <div class="cell"><a href="#map">18</a></div>
-                            <div class="cell">In</div>
+                            <div class="labelText col-sm-12 col-md-2 col-xs-12">Hole</div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map">10</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map">11</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map">12</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map">13</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map">14</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map">15</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map">16</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map">17</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map">18</a></div>
+                            <div class="col-sm-1 col-xs-12 noShow">In</div>
 
                         </div>
 
                         <div class="row yardageRow">
-                            <div id="yardageTitle" class="cell">Yardage</div>
-                            <div class="cell yards">0</div>
-                            <div class="cell yards">0</div>
-                            <div class="cell yards">0</div>
-                            <div class="cell yards">0</div>
-                            <div class="cell yards">0</div>
-                            <div class="cell yards">0</div>
-                            <div class="cell yards">0</div>
-                            <div class="cell yards">0</div>
-                            <div class="cell yards">0</div>
-                            <div class="totalYardage cell">0</div>
+                            <!-- For a row like this make sure to add something to let people know which data of each "cell" goes to which hole. -->
+                            <div class="labelText col-sm-12 col-md-2 col-xs-12">Yardage</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 10:</div>
+                            <div class="yards col-sm-1 col-xs-6">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 11:</div>
+                            <div class="yards col-sm-1 col-xs-6">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 12:</div>
+                            <div class="yards col-sm-1 col-xs-6">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 13:</div>
+                            <div class="yards col-sm-1 col-xs-6">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 14:</div>
+                            <div class="yards col-sm-1 col-xs-6">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 15:</div>
+                            <div class="yards col-sm-1 col-xs-6">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 16:</div>
+                            <div class="yards col-sm-1 col-xs-6">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 17:</div>
+                            <div class="yards col-sm-1 col-xs-6">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 18:</div>
+                            <div class="yards col-sm-1 col-xs-6">0</div>
+                            <div class="cellLabel showXS col-xs-6">In:</div>
+                            <div class="totalYardage col-sm-1 col-xs-6">0</div>
                         </div>
 
                         <div class="row parRow">
 
-                            <div class="cell">Par</div>
-                            <div class="cell par">0</div>
-                            <div class="cell par">0</div>
-                            <div class="cell par">0</div>
-                            <div class="cell par">0</div>
-                            <div class="cell par">0</div>
-                            <div class="cell par">0</div>
-                            <div class="cell par">0</div>
-                            <div class="cell par">0</div>
-                            <div class="cell par">0</div>
-                            <div class="parOut cell">0</div>
+                            <div class="labelText col-sm-12 col-md-2 col-xs-12">Par</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 1:</div>
+                            <div class="col-sm-1 col-xs-6 par">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 2:</div>
+                            <div class="col-sm-1 col-xs-6 par">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 3:</div>
+                            <div class="col-sm-1 col-xs-6 par">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 4:</div>
+                            <div class="col-sm-1 col-xs-6 par">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 5:</div>
+                            <div class="col-sm-1 col-xs-6 par">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 6:</div>
+                            <div class="col-sm-1 col-xs-6 par">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 7:</div>
+                            <div class="col-sm-1 col-xs-6 par">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 8:</div>
+                            <div class="col-sm-1 col-xs-6 par">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 9:</div>
+                            <div class="col-sm-1 col-xs-6 par">0</div>
+                            <div class="cellLabel showXS col-xs-6">In:</div>
+                            <div class="parOut col-sm-1 col-xs-6">0</div>
 
                         </div>
 
                         <div class="row handyRow">
 
-                            <div class="cell">Handicap</div>
-                            <div class="cell par">0</div>
-                            <div class="cell par">0</div>
-                            <div class="cell par">0</div>
-                            <div class="cell par">0</div>
-                            <div class="cell par">0</div>
-                            <div class="cell par">0</div>
-                            <div class="cell par">0</div>
-                            <div class="cell par">0</div>
-                            <div class="cell par">0</div>
-                            <div class="parOut cell">0</div>
+                            <div class="labelText  col-sm-12 col-md-2 col-xs-12">Handicap</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 10:</div>
+                            <div class="col-sm-1 col-xs-6 handy">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 11:</div>
+                            <div class="col-sm-1 col-xs-6 handy">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 12:</div>
+                            <div class="col-sm-1 col-xs-6 handy">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 13:</div>
+                            <div class="col-sm-1 col-xs-6 handy">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 14:</div>
+                            <div class="col-sm-1 col-xs-6 handy">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 15:</div>
+                            <div class="col-sm-1 col-xs-6 handy">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 16:</div>
+                            <div class="col-sm-1 col-xs-6 handy">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 17:</div>
+                            <div class="col-sm-1 col-xs-6 handy">0</div>
+                            <div class="cellLabel showXS col-xs-6">Hole 18:</div>
+                            <div class="col-sm-1 col-xs-6 handy">0</div>
+                            <div class="col-sm-1 col-xs-12"></div>
 
                         </div>
 
@@ -269,9 +341,11 @@
             </div>
             <div class="modal-body" id="addPlayerBody">
 
-                <div class="alert alert-danger">Please put in another name!</div>
+                <div id="anotherName" class="alert alert-danger">Please put in another name!</div>
 
-                <div class="alert alert-danger">Don't put in the same name!</div>
+                <div id="sameName" class="alert alert-danger">Don't put in the same name!</div>
+
+                <div id="prevName" class="alert alert-danger">A name has been put in previously!</div>
 
                 <div class="playerToAdd">
 
