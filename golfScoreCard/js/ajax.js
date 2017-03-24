@@ -94,6 +94,48 @@ function getCourseGeoLocation() {
 
     }
 
+    xhttp.open("POST", "https://golf-courses-api.herokuapp.com/courses/", true);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            currentLocation = new Position(position.coords.latitude, position.coords.longitude);
+            body = {
+                latitude: currentLocation.latitude,
+                longitude: currentLocation.longitude,
+                radius: 48.2803
+            };
+            xhttp.send(JSON.stringify(body));
+
+        }), function (error) {
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+
+                case error.POSITION_UNAVAILABLE:
+
+                case error.TIMEOUT:
+
+                case error.UNKNOWN_ERR:
+
+                    body = {
+                        latitude: 40.4196423,
+                        longitude: -111.8866683,
+                        radius: 48.2803
+                    };
+            }
+            xhttp.send(JSON.stringify(body));
+
+        };
+    }
+    else {
+        body = {
+            latitude: 40.4196423,
+            longitude: -111.8866683,
+            radius: 48.2803
+        };
+        xhttp.send(JSON.stringify(body));
+    }
+
 }
 
 function updateCard(id) {
@@ -110,7 +152,7 @@ function updateCard(id) {
                     console.log(courseSelected)
                     updateMapData(courseSelected);
                     updateHoleTabs();
-                    updateMeasurement()
+                    // updateMeasurement()
                 }
 
             };
@@ -135,12 +177,12 @@ function updateCard(id) {
 
     }
 
-    // function updateMeasurement(){
-    //     var total = 0;
-    //     for (var i = 0; i < courseSelected.holes.length; i++) {
-    //         $(".yards")[i].innerHTML = courseSelected.holes;
-    //     }
-    // }
+    function updateMeasurement(){
+        var total = 0;
+        for (var i = 0; i < courseSelected.holes.length; i++) {
+            $(".yards")[i].innerHTML = courseSelected.holes;
+        }
+    }
 
     function updatePar() {
         
@@ -160,6 +202,3 @@ function updateCard(id) {
 
 }
 
-function updateMeasRows(value) {
-
-}

@@ -61,6 +61,10 @@ body {
     font-size: 20px;
 }
 
+.modal-body .alert {
+    display: none;
+}
+
 .modalRemove {
     display: block;
     color: coral;
@@ -80,6 +84,7 @@ div.row {
     border-width: 1px;
     width: 100%;
     margin: 0 auto;
+    text-align: center;
 }
 
 .parRow {
@@ -145,6 +150,10 @@ div.row {
     background-color: rgb(255,165,100);
 }
 
+.meterRow {
+    display: none;
+}
+
 .yardageRow {
     background-color: rgb(255,255,133);
 }
@@ -172,4 +181,11 @@ div.row {
 
 #selectCourse {
     margin: 10px;
+}
+
+#yardsOrMeters {
+    margin: 0 auto;
+    margin-top: -15px;
+    margin-bottom: 15px;
+    padding: 10px;
 }
