@@ -47,7 +47,7 @@ function getData() {
             body = {
                 latitude: currentLocation.latitude,
                 longitude: currentLocation.longitude,
-                radius: 48.2803
+                radius: 48
             };
             xhttp.send(JSON.stringify(body));
 
@@ -64,7 +64,7 @@ function getData() {
                     body = {
                         latitude: 40.4196423,
                         longitude: -111.8866683,
-                        radius: 48.2803
+                        radius: 48
                     };
             }
             xhttp.send(JSON.stringify(body));
@@ -75,7 +75,7 @@ function getData() {
         body = {
             latitude: 40.4196423,
             longitude: -111.8866683,
-            radius: 48.2803
+            radius: 48
         };
         xhttp.send(JSON.stringify(body));
     }
@@ -111,7 +111,7 @@ function getCourseGeoLocation() {
             body = {
                 latitude: currentLocation.latitude,
                 longitude: currentLocation.longitude,
-                radius: 48.2803
+                radius: 55//48.2803
             };
             xhttp.send(JSON.stringify(body));
 
@@ -128,7 +128,7 @@ function getCourseGeoLocation() {
                     body = {
                         latitude: 40.4196423,
                         longitude: -111.8866683,
-                        radius: 48.2803
+                        radius: 55//48.2803
                     };
             }
             xhttp.send(JSON.stringify(body));
@@ -139,7 +139,7 @@ function getCourseGeoLocation() {
         body = {
             latitude: 40.4196423,
             longitude: -111.8866683,
-            radius: 48.2803
+            radius: 55//48.2803
         };
         xhttp.send(JSON.stringify(body));
     }
@@ -205,11 +205,52 @@ function updateCard(id) {
         var holes = courseSelected.holes;
         var proOut = 0, proIn = 0, champOut = 0, champIn = 0, menOut = 0, menIn = 0, womenOut = 0, womenIn = 0;
 
+        //For updating the yards section
         for (var i = 0; i < holes.length; i++) {
+            for (var j = 0; j < holes[i].tee_boxes.length; j++) {
+
+            }
             $(".pro.yardageRow>.yards")[i].innerHTML = holes[i].tee_boxes[0].yards;
             $(".champion.yardageRow>.yards")[i].innerHTML = holes[i].tee_boxes[1].yards;
             $(".men.yardageRow>.yards")[i].innerHTML = holes[i].tee_boxes[2].yards;
             $(".women.yardageRow>.yards")[i].innerHTML = holes[i].tee_boxes[3].yards;
+            if (i < 9) {
+                proOut += Number(holes[i].tee_boxes[0].yards);
+                champOut += Number(holes[i].tee_boxes[1].yards);
+                menOut += Number(holes[i].tee_boxes[2].yards);
+                womenOut += Number(holes[i].tee_boxes[3].yards);
+            }
+            else if (i >= 9 && i < 18) {
+                proIn += Number(holes[i].tee_boxes[0].yards);
+                champIn += Number(holes[i].tee_boxes[1].yards);
+                menIn += Number(holes[i].tee_boxes[2].yards);
+                womenIn += Number(holes[i].tee_boxes[3].yards);
+            }
+
+        }
+
+        proOut = champOut = menOut = womenOut = 0;
+        proIn = champIn = menIn = womenIn = 0;
+
+        //For updating the meters section
+        for (var i = 0; i < holes.length; i++) {
+            $(".pro.meterRow>.meters")[i].innerHTML = holes[i].tee_boxes[0].meters;
+            $(".champion.yardageRow>.meters")[i].innerHTML = holes[i].tee_boxes[1].meters;
+            $(".men.yardageRow>.meters")[i].innerHTML = holes[i].tee_boxes[2].meters;
+            $(".women.yardageRow>.meters")[i].innerHTML = holes[i].tee_boxes[3].meters;
+
+            if (i < 9) {
+                proOut += holes[i].tee_boxes[0].meters;
+                champOut += Number(holes[i].tee_boxes[1].meters);
+                menOut += Number(holes[i].tee_boxes[2].meters);
+                womenOut += Number(holes[i].tee_boxes[3].meters);
+            }
+            else if (i >= 9 && i < 18) {
+                proIn += holes[i].tee_boxes[0].meters;
+                champIn += Number(holes[i].tee_boxes[1].meters);
+                menIn += Number(holes[i].tee_boxes[2].meters);
+                womenIn += Number(holes[i].tee_boxes[3].meters);
+            }
         }
 
     }
@@ -222,17 +263,25 @@ function updateCard(id) {
     function updatePar() {
 
         var par = [];
-
-        var parOut, parIn;
+        var parOut = 0, parIn = 0;
 
         for (var i = 0; i < courseSelected.holes.length; i++) {
             par.push(courseSelected.holes[i].tee_boxes[0].par);
         }
-
-
         for (var i = 0; i < par.length; i++) {
             $(".par")[i].innerHTML = par[i];
+
+            if (i < 9) {
+                parOut += Number(par[i]);
+            }
+            else if (i >= 9 && i < 18) {
+                parIn += Number(par[i]);
+            }
         }
+
+        $("#parOut").html(parOut);
+        $("#parIn").html(parIn);
+        $("#parTotal").html(parOut + parIn);
 
     }
 

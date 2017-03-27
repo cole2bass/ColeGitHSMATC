@@ -165,9 +165,6 @@ function addPlayers() {
     var totalScore = document.getElementById("totalTable");
     playerList1.innerHTML = "";
     playerList2.innerHTML = "";
-    //Make lines less complicated, add player rows then later add the players.
-
-
 
     for (var i = 0; i < players.length; i++) {
         playerList1.innerHTML += "<div class='row player'></div>";
@@ -184,23 +181,52 @@ function addPlayers() {
 
         for (var j = 0; j < 9; j++) {
 
-            playerSet1[i].innerHTML += "<div class='col-sm-1 col-xs-6'><input class='points " + players[i].name.split(" ")[0] + (i + 1) + "' type='number'></div>";
+            playerSet1[i].innerHTML += "<div class='cellLabel showXS col-xs-6'>Hole " + (j+1) + ":</div>"
+            playerSet1[i].innerHTML += "<div class='col-sm-1 col-xs-6'><input class='points " + players[i].name.split(" ")[0] + (i + 1) + "' type='number' onkeyup='updateScore()''></div>";
+            playerSet2[i].innerHTML += "<div class='cellLabel showXS col-xs-6'>Hole " + (j + 9) + ":</div>";
+            playerSet2[i].innerHTML += "<div class='col-sm-1 col-xs-6'><input class='points " + players[i].name.split(" ")[0] + (i + 1) + "' type='number' onkeyup='updateScore()''></div>";
 
-            playerSet2[i].innerHTML += "<div class='col-sm-1 col-xs-6'><input class='points " + players[i].name.split(" ")[0] + (i + 1) + "' type='number'></div>";
-
-            //Add Onclick to new elements that add to the out, in and total
+            //Add onkeyup to new elements that add to the out, in and total
 
         }
 
-        playerSet1[i].innerHTML += "<div class='col-sm-1 col-xs-6 score'>0</div>";
-        playerSet2[i].innerHTML += "<div class='col-sm-1 col-xs-6 score'>0</div>";
-
+        playerSet1[i].innerHTML += "<div class='cellLabel showXS col-xs-6'>Out:</div>"
+        playerSet1[i].innerHTML += "<div class='col-sm-1 col-xs-6 scoreOut'>0</div>";
+        playerSet2[i].innerHTML += "<div class='cellLabel showXS col-xs-6'>In:</div>"
+        playerSet2[i].innerHTML += "<div class='col-sm-1 col-xs-6 scoreIn'>0</div>";
 
     }
+    // $(".player input").keyup(function (event, value) {
+    //     console.log(value);
+    // });
 
     var addPlayerList = document.getElementById("addPlayerList");
     addPlayerList.innerHTML = "";
     count = 1;
+
+    $("#addPlayer").modal("hide");
+
+}
+
+function updateScore() {
+
+    var players1 = $(".playerContainer")[0].getElementsByClassName("player");
+    var players2 = $(".playerContainer")[1].getElementsByClassName("player");
+
+    for (var i = 0; i < players1.length; i++) {
+        var points1 = players1[i].getElementsByClassName("points");
+        var score1 = players1[i].getElementsByClassName("scoreOut")[0];
+        var points2 = players2[i].getElementsByClassName("points");
+        var score2 = players2[i].getElementsByClassName("scoreIn")[0];
+        var pointsOut = 0, pointsIn = 0, totalPoints = 0;
+        for (var j = 0; j < points1.length; j++) {
+            pointsOut += Number(points1[j].value);
+            pointsIn += Number(points2[j].value);
+        }
+        totalPoints = pointsOut + pointsIn;
+        score1.innerHTML = pointsOut;
+        score2.innerHTML = pointsIn;
+    }
 
 }
 
