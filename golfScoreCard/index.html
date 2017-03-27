@@ -72,15 +72,15 @@
 
                             <!-- Put onclick attribute on the <a> tags and pass data to map. -->
                             <div class="labelText col-sm-12 col-md-2 col-xs-12">Hole</div>
-                            <div class="col-sm-1 col-xs-12"><a href="#map" onclick="displayHole(/*index*/)">1</a></div>
-                            <div class="col-sm-1 col-xs-12"><a href="#map">2</a></div>
-                            <div class="col-sm-1 col-xs-12"><a href="#map">3</a></div>
-                            <div class="col-sm-1 col-xs-12"><a href="#map">4</a></div>
-                            <div class="col-sm-1 col-xs-12"><a href="#map">5</a></div>
-                            <div class="col-sm-1 col-xs-12"><a href="#map">6</a></div>
-                            <div class="col-sm-1 col-xs-12"><a href="#map">7</a></div>
-                            <div class="col-sm-1 col-xs-12"><a href="#map">8</a></div>
-                            <div class="col-sm-1 col-xs-12"><a href="#map">9</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map" onclick="displayHole(0)">1</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map" onclick="displayHole(1)">2</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map" onclick="displayHole(2)">3</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map" onclick="displayHole(3)">4</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map" onclick="displayHole(4)">5</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map" onclick="displayHole(5)">6</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map" onclick="displayHole(6)">7</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map" onclick="displayHole(7)">8</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map" onclick="displayHole(8)">9</a></div>
                             <div class="col-sm-1 col-xs-12 noShow">Out</div>
 
                         </div>
@@ -409,15 +409,15 @@
 
                             <!-- Put onclick attribute on the <a> tags and pass data to map. -->
                             <div class="labelText col-sm-12 col-md-2 col-xs-12">Hole</div>
-                            <div class="col-sm-1 col-xs-12"><a href="#map">10</a></div>
-                            <div class="col-sm-1 col-xs-12"><a href="#map">11</a></div>
-                            <div class="col-sm-1 col-xs-12"><a href="#map">12</a></div>
-                            <div class="col-sm-1 col-xs-12"><a href="#map">13</a></div>
-                            <div class="col-sm-1 col-xs-12"><a href="#map">14</a></div>
-                            <div class="col-sm-1 col-xs-12"><a href="#map">15</a></div>
-                            <div class="col-sm-1 col-xs-12"><a href="#map">16</a></div>
-                            <div class="col-sm-1 col-xs-12"><a href="#map">17</a></div>
-                            <div class="col-sm-1 col-xs-12"><a href="#map">18</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map" onclick="displayHole(9)">10</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map"onclick="displayHole(10)">11</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map"onclick="displayHole(11)">12</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map"onclick="displayHole(12)">13</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map"onclick="displayHole(13)">14</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map"onclick="displayHole(14)">15</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map"onclick="displayHole(15)">16</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map"onclick="displayHole(16)">17</a></div>
+                            <div class="col-sm-1 col-xs-12"><a href="#map"onclick="displayHole(17)">18</a></div>
                             <div class="col-sm-1 col-xs-12 noShow">In</div>
 
                         </div>
@@ -746,19 +746,29 @@
 
         <h3 id="totalLabel">Player Total:</h3>
 
-        <div id="totalNameRow" class="row"> No Players</div>
+        <div id="totalContainer">
 
-        <div id="totalScoreRow" class="row">No Score</div>
+            <div id="totalNameRow" class="row"> No Players</div>
 
-        <h3 id="totalParLabel">Par Total: </h3>
+            <div id="totalScoreRow" class="row">No Score</div>
 
-        <div id="parTotal">0</div>
+        </div>
+
+        <div id="parTotalBox">
+
+            <h3 id="totalParLabel">Par Total: </h3>
+
+            <div id="parTotal">0</div>
+
+        </div>
 
     </div>
 
     <h3 id="mapLabel">The Map</h3>
 
-    <div id="map"></div>
+    <div id="mapBox">
+        <div id="map"></div>
+    </div>
 
 </div>
 

@@ -41,6 +41,10 @@ body {
     font-weight: bold;
 }
 
+.champion {
+    background-color: deepskyblue;
+}
+
 .container {
     background-color: rgba(255, 255, 255, 0.85);
     margin: 50px auto;
@@ -59,6 +63,7 @@ body {
 .labelText {
     font-weight: bold;
     font-size: 20px;
+    text-align: left;
 }
 
 .modal-body .alert {
@@ -98,10 +103,14 @@ div.row {
 }
 
 .player {
-    background-color: orange;
     border-style: solid;
     border-width: 1px;
     border-top-width: 0;
+}
+
+.player input {
+    width: 60px;
+    text-align: center;
 }
 
 .playerLabel {
@@ -113,6 +122,13 @@ div.row {
     padding: 9px;
     margin: -10px;
 }
+
+.playerName {
+    font-weight: bold;
+    font-size: 20px;
+    text-align: left;
+}
+
 .playerTable {
     margin-bottom: 0;
 }
@@ -124,6 +140,11 @@ div.row {
 
 .playerToAdd {
     margin-left: 18px;
+}
+
+.pro {
+    background-color: black;
+    color: white;
 }
 
 #addPlayerList>div.playerToAdd {
@@ -150,12 +171,12 @@ div.row {
     background-color: rgb(255,165,100);
 }
 
-.meterRow {
-    display: none;
+.women {
+    background-color: rgb(255, 100, 100);
 }
 
-.yardageRow {
-    background-color: rgb(255,255,133);
+.meterRow {
+    display: none;
 }
 
 #addPlayerList label {
@@ -163,11 +184,16 @@ div.row {
 
 }
 
-#map {
-    width: 80%;
-    height: 400px;
+#mapBox {
+    width: 100%;
+    height: 600px;
     margin: 30px auto;
     background-color: grey;
+}
+#map {
+    width: 80%;
+    height: 100%;
+    margin: 30px auto;
 }
 
 #topTitle {

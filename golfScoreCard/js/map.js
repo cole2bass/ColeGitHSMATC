@@ -1,32 +1,38 @@
 
 var holes;
 
-function Hole(){
+var location1 = {
+    lat: 0,
+    lng: 0
+};
+var location2 = {
+    lat: 0,
+    lng:0
+};
 
-}
+function displayHole(index) {
 
-function updateMapData(courseSelected) {
+    location1 = holes[index].position1;
+    location2 = holes[index].position2;
 
-
+    initMap();
 
 }
 
 function initMap() {
-    var uluru = {lat: -25.363, lng: 131.044};
-    var newPos = {lat: -23.002, lng: 90.304};
     var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 16,
-        center: uluru
+        zoom: 15,
+        center: location1
     });
     var marker1 = new google.maps.Marker({
-        position: uluru,
+        position: location1,
         map: map,
-        label: {text: "1"}
+        label: {text: "Green"}
     });
     var marker2 = new google.maps.Marker({
-        position: newPos,
+        position: location2,
         map: map,
-        label: {text: "2"}
+        label: {text: "Start"}
     });
 
 

@@ -4,9 +4,17 @@ var courseSelected = "";
 var Position = function(latitude, longitude) {
     this.latitude = latitude;
     this.longitude = longitude;
-}
+};
 var currentLocation;
-var parTotal = 0;
+
+var hdata = [];
+
+var HoleData = function (position1, position2) {
+
+    this.position1 = position1;
+    this.position2 = position2;
+
+};
 
 function getData() {
     var xhttp = new XMLHttpRequest();
@@ -43,7 +51,7 @@ function getData() {
             };
             xhttp.send(JSON.stringify(body));
 
-        }), function (error) {
+        }, function (error) {
             switch (error.code) {
                 case error.PERMISSION_DENIED:
 
@@ -61,7 +69,7 @@ function getData() {
             }
             xhttp.send(JSON.stringify(body));
 
-        };
+        });
     }
     else {
         body = {
@@ -92,7 +100,7 @@ function getCourseGeoLocation() {
             });
         }
 
-    }
+    };
 
     xhttp.open("POST", "https://golf-courses-api.herokuapp.com/courses/", true);
     xhttp.setRequestHeader("Content-Type", "application/json");
@@ -107,7 +115,7 @@ function getCourseGeoLocation() {
             };
             xhttp.send(JSON.stringify(body));
 
-        }), function (error) {
+        }, function (error) {
             switch (error.code) {
                 case error.PERMISSION_DENIED:
 
@@ -125,7 +133,7 @@ function getCourseGeoLocation() {
             }
             xhttp.send(JSON.stringify(body));
 
-        };
+        });
     }
     else {
         body = {
@@ -149,9 +157,13 @@ function updateCard(id) {
                 if (xhttp.readyState == XMLHttpRequest.DONE && xhttp.status == 200) {
                     var data = JSON.parse(xhttp.responseText);
                     courseSelected = data.course;
-                    console.log(courseSelected)
-                    updateMapData(courseSelected);
+                    console.log(courseSelected);
+                    updateHoleData(courseSelected);
                     updateHoleTabs();
+                    updateHoleData();
+                    updatePar();
+                    updateMeasureType(courseSelected.measurement_type);
+                    updateYardMeter();
                     // updateMeasurement()
                 }
 
@@ -159,7 +171,6 @@ function updateCard(id) {
             xhttp.open("GET", "https://golf-courses-api.herokuapp.com/courses/"+course.id, true);
 
             xhttp.send();
-            return;
         }
 
     });
@@ -174,28 +185,57 @@ function updateCard(id) {
     }
 
     function updateHoleData() {
+        hdata = [];
+        var holeDataFromJSON = courseSelected.holes;
+
+        for (var i = 0; i < holeDataFromJSON.length; i++) {
+            var position1 = holeDataFromJSON[i].green_location;
+            var position2 = holeDataFromJSON[i].tee_boxes[0].location;
+
+            hdata.push(new HoleData(position1, position2));
+
+        }
+
+        holes = hdata;
 
     }
 
-    function updateMeasurement(){
-        var total = 0;
-        for (var i = 0; i < courseSelected.holes.length; i++) {
-            $(".yards")[i].innerHTML = courseSelected.holes;
+    function updateYardMeter(){
+
+        var holes = courseSelected.holes;
+        var proOut = 0, proIn = 0, champOut = 0, champIn = 0, menOut = 0, menIn = 0, womenOut = 0, womenIn = 0;
+
+        for (var i = 0; i < holes.length; i++) {
+            $(".pro.yardageRow>.yards")[i].innerHTML = holes[i].tee_boxes[0].yards;
+            $(".champion.yardageRow>.yards")[i].innerHTML = holes[i].tee_boxes[1].yards;
+            $(".men.yardageRow>.yards")[i].innerHTML = holes[i].tee_boxes[2].yards;
+            $(".women.yardageRow>.yards")[i].innerHTML = holes[i].tee_boxes[3].yards;
         }
+
+    }
+
+    function updateMeasureType(value) {
+        $("#yOrM").val(value);
+        updateMeasRows(value);
     }
 
     function updatePar() {
-        
+
+        var par = [];
+
+        var parOut, parIn;
+
+        for (var i = 0; i < courseSelected.holes.length; i++) {
+            par.push(courseSelected.holes[i].tee_boxes[0].par);
+        }
+
+
+        for (var i = 0; i < par.length; i++) {
+            $(".par")[i].innerHTML = par[i];
+        }
+
     }
 
-    function updateParTotal() {
-                
-        var outPar = 0;
-        var inPar = 0;
-        var total;
-
-        
-    }
     function updateHandicap() {
 
     }

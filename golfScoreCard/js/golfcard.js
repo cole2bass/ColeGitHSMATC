@@ -156,6 +156,10 @@ function addPlayers() {
 
     }
 
+    if (validateName()) {
+        return;
+    }
+
     var playerList1 = document.querySelectorAll("div.playerContainer")[0], playerList2 = document.querySelectorAll("div.playerContainer")[1];
     var totalName = document.getElementById("totalTable");
     var totalScore = document.getElementById("totalTable");
@@ -173,12 +177,25 @@ function addPlayers() {
     var playerSet1 = playerList1.querySelectorAll(".player"), playerSet2 = playerList2.querySelectorAll(".player");
 
     for (var i = 0; i < players.length; i++) {
+        playerSet1[i].setAttribute("class", "row player " + players[i].teeType);
+        playerSet2[i].setAttribute("class", "row player " + players[i].teeType);
         playerSet1[i].innerHTML = "<div class='playerName col-sm-12 col-md-2 col-xs-12'>" + players[i].name + "</div>";
         playerSet2[i].innerHTML = "<div class='playerName col-sm-12 col-md-2 col-xs-12'>" + players[i].name + "</div>";
+
         for (var j = 0; j < 9; j++) {
-            playerSet1[i];
-            playerSet2[i];
+
+            playerSet1[i].innerHTML += "<div class='col-sm-1 col-xs-6'><input class='points " + players[i].name.split(" ")[0] + (i + 1) + "' type='number'></div>";
+
+            playerSet2[i].innerHTML += "<div class='col-sm-1 col-xs-6'><input class='points " + players[i].name.split(" ")[0] + (i + 1) + "' type='number'></div>";
+
+            //Add Onclick to new elements that add to the out, in and total
+
         }
+
+        playerSet1[i].innerHTML += "<div class='col-sm-1 col-xs-6 score'>0</div>";
+        playerSet2[i].innerHTML += "<div class='col-sm-1 col-xs-6 score'>0</div>";
+
+
     }
 
     var addPlayerList = document.getElementById("addPlayerList");
@@ -203,8 +220,21 @@ function validateName() {
         $("#sameName").css("display", "block");
         setTimeout(function () {
             $("#sameName").css("display", "none");
-        }, 3000)
+        }, 3000);
     }
+
+    if (previousNameExists()) {
+        $("#prevName").css("display", "block");
+        setTimeout(function () {
+           $("#prevName").css("display", "none")
+        }, 3000);
+    }
+
+    if (sameNameExists() || previousNameExists()) {
+        return false;
+    }
+
+    return true;
 
     function sameNameExists() {
 
@@ -222,6 +252,33 @@ function validateName() {
         }
 
         return false;
+    }
+
+    function previousNameExists() {
+
+        for (var i = 0; i < names.length; i++) {
+            for (var j = 0; j < players.length; j++) {
+                if (names[i] == players[j].name) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+
+    }
+
+}
+
+function updateMeasRows(value) {
+
+    if (value == "meters") {
+        $(".meterRow").css("display", "block");
+        $(".yardageRow").css("display", "none");
+    }
+    else if (value == "yards") {
+        $(".meterRow").css("display", "none");
+        $(".yardageRow").css("display", "block")
     }
 
 }
