@@ -1,9 +1,6 @@
 
 var players = [];
 var count = 1;
-// Add a Player Object and make the context like this: {name: value of text, score: sum of score}
-
-//TODO Make sure that you append necessary html to container and when removing unwanted number of players just remove that element that contains that player.
 
 function Player(name, teeType) {
     this.name = name;
@@ -73,7 +70,7 @@ function addPlayers() {
         }
     }
 
-    if (names.length == inputList.length) {
+    if (names.length == inputList.length && validateName()) {
         for (var playerInd = 0; playerInd < names.length; playerInd++) {
             players.push(new Player(names[playerInd], tee_types[playerInd]));
         }
@@ -102,8 +99,8 @@ function addPlayers() {
                 for (var i = 0; i < 9; i++) {
                     playerRow1.innerHTML += "<div class='cellLabel showXS col-xs-6'>Hole " + (i + 1) +":</div>";
                     playerRow2.innerHTML += "<div class='cellLabel showXS col-xs-6'>Hole " + (i + 9) +":</div>";
-                    playerRow1.innerHTML += "<div class='col-sm-1 col-xs-6'><input type='number' data-hole-type='out' data-player-name='" + players[playerInd].name +"' onkeyup='updateScore(data-player-name, value, data-hole-type, " + i + ")'></div>";
-                    playerRow2.innerHTML += "<div class='col-sm-1 col-xs-6'><input type='number' data-hole-type='in' data-player-name='" + players[playerInd].name +"' onkeyup='updateScore(data-player-name, value, data.hole-type, " + (i+9) + ")'></div>";
+                    playerRow1.innerHTML += "<div class='col-sm-1 col-xs-6'><input type='number' data-hole-type='out' data-player-name='" + players[playerInd].name +"' onkeyup='updateScore(data-player-name, value, " + i + ")'></div>";
+                    playerRow2.innerHTML += "<div class='col-sm-1 col-xs-6'><input type='number' data-hole-type='in' data-player-name='" + players[playerInd].name +"' onkeyup='updateScore(data-player-name, value, " + (i+9) + ")'></div>";
                 }
                 playerRow1.innerHTML += "<div class='cellLabel showXS col-xs-6'>Out:</div>";
                 playerRow2.innerHTML += "<div class='cellLabel showXS col-xs-6'>In:</div>";
@@ -114,17 +111,49 @@ function addPlayers() {
             }
         }
 
-        var totalContainer = $("#totalContainer");
+        $("#totalContainer").html("");
 
-        totalContainer.innerHTML
+        var totalContainer = document.getElementById("totalContainer");
 
+        //Start adding stuff for the total Table
+        for (var playerInd = 1; playerInd <= players.length; playerInd++) {
+            if (playerInd % 5 == 1) {
+                totalContainer.innerHTML += "<div class='row totalNameRow'></div>";
+                totalContainer.innerHTML += "<div class='row totalScoreRow'></div>";
+            }
+        }
+
+        var totalNameRows = $(".totalNameRow");
+        var totalScoreRows = $(".totalScoreRow");
+
+        var rowCount = 0;
+
+        for (var playerInd = 0; playerInd < players.length; playerInd++){
+            if (playerInd % 5 == 0 && playerInd > 0) {
+                rowCount++;
+            }
+            totalNameRows[rowCount].innerHTML += "<div class='totalPlayerName'></div>"
+            totalScoreRows[rowCount].innerHTML+= "<div class='totalPlayerScore'></div>"
+        }
+
+        var totalNames = totalContainer.getElementsByClassName("totalPlayerName");
+        var totalScores = totalContainer.getElementsByClassName("totalPlayerScore");
+
+        for (var playerInd = 0; playerInd < players.length; playerInd++) {
+            totalNames[playerInd].className += " "+players[playerInd].teeType;
+            totalNames[playerInd].innerHTML = players[playerInd].name;
+            totalScores[playerInd].innerHTML = players[playerInd].score;
+        }
 
     }
-    else {
+    else if (names.length != inputList.length) {
         $("#anotherName").css("display", "block");
         setTimeout(function () {
             $("#anotherName").css("display", "none");
         }, 3000)
+        return;
+    }
+    else if (!validateName()) {
         return;
     }
 
@@ -149,15 +178,19 @@ function addPlayers() {
 
 }
 
-function updateScore(name, value, type, index) {
+function updateScore(name, value, index) {
+
+    console.log(name);
 
     var playerRow1, playerRow2;
+    var playerTotalScore;
     var player;
 
     for (var playerIndex = 0; playerIndex < players.length; playerIndex++) {
         if ($(".playerContainer")[0].getElementsByClassName("player")[playerIndex].getElementsByClassName("labelText")[0].innerHTML == name) {
             playerRow1 = $(".playerContainer")[0].getElementsByClassName("player")[playerIndex];
             playerRow2 = $(".playerContainer")[1].getElementsByClassName("player")[playerIndex];
+            playerTotalScore = $("#totalContainer").getElementsByClassName("totalPlayerScore")[playerIndex];
             player = players[playerIndex];
             break;
         }
@@ -166,15 +199,32 @@ function updateScore(name, value, type, index) {
     player.holePoints[index] = value;
 
     var outPoints = 0, inPoints = 0;
+    var total;
 
     for (var pointInd = 0; pointInd < player.holePoints.length; pointInd++) {
-        if (pointInd) {
-
+        if (pointInd < 9) {
+            outPoints += player.holePoints[pointInd];
+        }
+        else if (pointInd >= 9 && pointInd < 18) {
+            inPoints += player.holePoints[pointInd];
         }
     }
 
-    if (index == holes.length) {
+    total = outPoints + inPoints;
+    player.score = total;
 
+    playerRow1.getElementsByClassName("playerOut")[0].innerHTML = outPoints;
+    playerRow2.getElementsByClassName("playerIn")[0].innerHTML = inPoints;
+    playerTotalScore.innerHTML = total;
+
+
+    if (index == holes.length - 1) {
+        if (player.score <= totalPar) {
+            alert(player.name + ", great game!  Good job!")
+        }
+        else {
+            alert(player.name + ", better luck next time.")
+        }
     }
 
 
