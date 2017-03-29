@@ -32,7 +32,8 @@ function initMap() {
     var marker2 = new google.maps.Marker({
         position: location2,
         map: map,
-        label: {text: "Start"}
+        label: {text: "Tee Off", color: "brown"}
+
     });
 
 

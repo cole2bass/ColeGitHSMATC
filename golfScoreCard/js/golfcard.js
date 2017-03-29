@@ -3,9 +3,12 @@ var players = [];
 var count = 1;
 // Add a Player Object and make the context like this: {name: value of text, score: sum of score}
 
+//TODO Make sure that you append necessary html to container and when removing unwanted number of players just remove that element that contains that player.
+
 function Player(name, teeType) {
     this.name = name;
     this.teeType = teeType;
+    this.holePoints = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
     this.score = 0;
     this.out = 0;
     this.in = 0;
@@ -14,219 +17,166 @@ function Player(name, teeType) {
 
 function addPlayerToAdd() {
 
-    var addPlayerList = document.getElementById("addPlayerList");
-    var inputList = document.getElementById("addPlayerBody").getElementsByTagName("input");
-    var teeSelect = document.querySelectorAll("selectTee");
-    var names = [];
-    var tee = [];
 
-    for (var i = 0; i < inputList.length; i++) {
-        if (inputList[i].value != "") {
-            names.push(inputList[i].value.trim())
-        }
-    }
+    $("#addPlayerList").append("<div id='player" + count + "' class='playerToAdd'>"+
+        "<label>Add New Player:</label>"+
+        "<input title='name' type='text' name='addPlayer' onkeyup='validateName()'>"+
+        "<select class='selectTee'>"+
+        "<option selected>Select a Tee Type Please</option>"+
+        "<option value='pro'>Pro</option>"+
+        "<option value='champion'>Champion</option>"+
+        "<option value='men'>Men</option>"+
+        "<option value='women'>Women</option>"+
+        "<!-- <option>amateur</option> -->"+
+        "</select>"+
+        "<span><a onclick='removePlayerToAdd(" + count +")' class='modalRemove glyphicon glyphicon-remove' href='#'></a></span>" +
 
-    for (var i = 0; i < teeSelect.length; i++) {
-        if (teeSelect[i].value != "") {
-            tee.push(teeSelect[i].value)
-        }
-    }
+        "</div>");
 
-    if (names.length == inputList.length) {
-        addPlayerList.innerHTML = "";
-        for (var i = 1; i < names.length; i++) {
-
-            var id = "potentPlay"+count;
-
-            addPlayerList.innerHTML += "<div id='" + id + "' class='playerToAdd'>"+
-            "<label>Add New Player:</label>"+
-            "<input title='name' type='text' name='addPlayer' onkeyup='validateName()'>"+
-                "<select class='selectTee'>"+
-                "<option selected>Select a Tee Type Please</option>"+
-                "<option value='pro'>Pro</option>"+
-                "<option value='champion'>Champion</option>"+
-                "<option value='men'>Men</option>"+
-                "<option value='women'>Women</option>"+
-                "<!-- <option>amateur</option> -->"+
-                "</select>" +
-                "<span><a onclick='removePlayerToAdd(" + count + ")' class='modalRemove glyphicon glyphicon-remove' href='#'></a></span>" +
-
-                "</div>";
-
-            count++;
-        }
-
-        var id = "potentPlay"+count;
-
-        addPlayerList.innerHTML += "<div id='" + id + "' class='playerToAdd'>"+
-            "<label>Add New Player:</label>"+
-            "<input title='name' type='text' name='addPlayer' onkeyup='validateName()'>"+
-            "<select class='selectTee'>"+
-            "<option selected>Select a Tee Type Please</option>"+
-            "<option value='pro'>Pro</option>"+
-            "<option value='champion'>Champion</option>"+
-            "<option value='men'>Men</option>"+
-            "<option value='women'>Women</option>"+
-            "<!-- <option>amateur</option> -->"+
-            "</select>"+
-            "<span><a onclick='removePlayerToAdd(" + count +")' class='modalRemove glyphicon glyphicon-remove' href='#'></a></span>" +
-
-            "</div>";
-
-        count += 1;
-
-    }
-    else if (names.length < inputList.length) {
-        $("#anotherName").css("display", "block");
-        setTimeout(function () {
-            $("#anotherName").css("display", "none");
-        }, 3000)
-    }
-
-    for (var i = 0; i < inputList.length - 1; i++) {
-        if (names[i] != undefined) {
-            inputList[i].value = names[i];
-        }
-    }
-
-    for (var i = 0; i < teeSelect.length; i++) {
-        if (tee[i] != undefined) {
-            teeSelect[i].value = tee[i];
-        }
-    }
-
-    count = 1;
+    count++;
 
 }
 
 function removePlayerToAdd(index) {
 
-    var addList = document.getElementById("addPlayerList");
-    var playerToAdd = document.getElementsByClassName("playerToAdd");
-    var array = "";
-    var names = [];
-    var idList = [];
-    var toDelete = "potentPlay"+index;
-    var inputList = addList.getElementsByTagName("input");
-
-    for (var i = 0; i < inputList.length; i++) {
-        names.push(inputList[i].value);
-        if (playerToAdd[i].id != "") {
-            idList.push(playerToAdd[i].id);
-        }
-    }
-
-
-
-    addList.innerHTML = removeHTMLElement(addList.getElementsByClassName("playerToAdd"), toDelete);
-
-    for (var i = 0; i < inputList.length; i++) {
-        inputList[i].value = names[i];
-    }
-
-    function removeHTMLElement(array, id) {
-        var string = "";
-        var newNames = [];
-
-        for (var i = 0; i < array.length; i++){
-            if (array[i].id != id && id != "") {
-                string += array[i].outerHTML;
-                newNames.push(names[i]);
-            }
-        }
-
-        names = newNames;
-        return string;
-    }
+    $("#player"+index).css("display", "none");
 
 }
 
 function addPlayers() {
 
-    var elements = document.getElementsByClassName("playerToAdd");
-    var selectTee = $(".selectTee")
+    var names = [];
+    var tee_types = [];
+    var inputList = [];
+    var selectList = $(".selectTee")
+    var displayedList = [];
 
-    for (var i = 0; i < elements.length; i++) {
-
-        var name = elements[i].getElementsByTagName("input")[0].value;
-        if (name != ""){
-            var player = new Player(name, selectTee[i].value);
-            players.push(player);
+    for (var i = 0; i < $(".playerToAdd").length; i++) {
+        if ($(".playerToAdd")[i].style.display != "none") {
+            displayedList.push($(".playerToAdd")[i]);
         }
-
     }
 
-    if (validateName()) {
+    for (var index = 0; index < displayedList.length; index++) {
+        inputList.push(displayedList[index].getElementsByTagName("input")[0])
+    }
+
+
+    for (var nameInd = 0; nameInd < inputList.length; nameInd++) {
+        if (inputList[nameInd].value.trim() != "") {
+            names.push(inputList[nameInd].value.trim());
+        }
+    }
+    for (var tee_typeInd = 0; tee_typeInd < selectList.length; tee_typeInd++){
+        if (selectList[tee_typeInd].value != "") {
+            tee_types.push(selectList[tee_typeInd].value);
+        }
+    }
+
+    if (names.length == inputList.length) {
+        for (var playerInd = 0; playerInd < names.length; playerInd++) {
+            players.push(new Player(names[playerInd], tee_types[playerInd]));
+        }
+
+        var playerContainer1 = $(".playerContainer")[0], playerContainer2 = $(".playerContainer")[1];
+
+        for (var playerInd = 0; playerInd < names.length; playerInd++) {
+            playerContainer1.innerHTML += "<div class='row player'></div>";
+            playerContainer2.innerHTML += "<div class='row player'></div>";
+        }
+
+        var playerList1 = playerContainer1.getElementsByClassName("player");
+        var playerList2 = playerContainer2.getElementsByClassName("player");
+
+        for (var playerInd = 0; playerInd < playerList1.length; playerInd++) {
+            if (playerList1[playerInd].innerHTML == "" && playerList2[playerInd].innerHTML == "") {
+
+                //Start adding content.
+                var playerRow1 = playerList1[playerInd];
+                var playerRow2 = playerList2[playerInd];
+                playerRow1.className += " "+players[playerInd].teeType;
+                playerRow2.className += " "+players[playerInd].teeType;
+                playerRow1.innerHTML += "<div class='labelText col-sm-12 col-md-2'>" + players[playerInd].name + "</div>";
+                playerRow2.innerHTML += "<div class='labelText col-sm-12 col-md-2'>" + players[playerInd].name + "</div>";
+
+                for (var i = 0; i < 9; i++) {
+                    playerRow1.innerHTML += "<div class='cellLabel showXS col-xs-6'>Hole " + (i + 1) +":</div>";
+                    playerRow2.innerHTML += "<div class='cellLabel showXS col-xs-6'>Hole " + (i + 9) +":</div>";
+                    playerRow1.innerHTML += "<div class='col-sm-1 col-xs-6'><input type='number' data-hole-type='out' data-player-name='" + players[playerInd].name +"' onkeyup='updateScore(data-player-name, value, data-hole-type, " + i + ")'></div>";
+                    playerRow2.innerHTML += "<div class='col-sm-1 col-xs-6'><input type='number' data-hole-type='in' data-player-name='" + players[playerInd].name +"' onkeyup='updateScore(data-player-name, value, data.hole-type, " + (i+9) + ")'></div>";
+                }
+                playerRow1.innerHTML += "<div class='cellLabel showXS col-xs-6'>Out:</div>";
+                playerRow2.innerHTML += "<div class='cellLabel showXS col-xs-6'>In:</div>";
+                playerRow1.innerHTML += "<div class='playerOut'>0</div>";
+                playerRow2.innerHTML += "<div class='playerIn'>0</div>";
+
+
+            }
+        }
+
+        var totalContainer = $("#totalContainer");
+
+        totalContainer.innerHTML
+
+
+    }
+    else {
+        $("#anotherName").css("display", "block");
+        setTimeout(function () {
+            $("#anotherName").css("display", "none");
+        }, 3000)
         return;
     }
 
-    var playerList1 = document.querySelectorAll("div.playerContainer")[0], playerList2 = document.querySelectorAll("div.playerContainer")[1];
-    var totalName = document.getElementById("totalTable");
-    var totalScore = document.getElementById("totalTable");
-    playerList1.innerHTML = "";
-    playerList2.innerHTML = "";
 
-    for (var i = 0; i < players.length; i++) {
-        playerList1.innerHTML += "<div class='row player'></div>";
-        playerList2.innerHTML += "<div class='row player'></div>";
-    }
+    $("#addPlayerList").html("<div class='playerToAdd'>"+
+        "<label>Add New Player:</label>"+
+        "<input title='name' type='text' name='addPlayer' onkeyup='validateName()'>"+
+        "<select class='selectTee'>"+
+        "<option selected>Select a Tee Type Please</option>"+
+        "<option value='pro'>Pro</option>"+
+        "<option value='champion'>Champion</option>"+
+        "<option value='men'>Men</option>"+
+        "<option value='women'>Women</option>"+
+        "<!-- <option>amateur</option> -->"+
+        "</select>"+
 
-    var playerSet1 = playerList1.querySelectorAll(".player"), playerSet2 = playerList2.querySelectorAll(".player");
+        "</div>");
 
-    for (var i = 0; i < players.length; i++) {
-        playerSet1[i].setAttribute("class", "row player " + players[i].teeType);
-        playerSet2[i].setAttribute("class", "row player " + players[i].teeType);
-        playerSet1[i].innerHTML = "<div class='playerName col-sm-12 col-md-2 col-xs-12'>" + players[i].name + "</div>";
-        playerSet2[i].innerHTML = "<div class='playerName col-sm-12 col-md-2 col-xs-12'>" + players[i].name + "</div>";
-
-        for (var j = 0; j < 9; j++) {
-
-            playerSet1[i].innerHTML += "<div class='cellLabel showXS col-xs-6'>Hole " + (j+1) + ":</div>"
-            playerSet1[i].innerHTML += "<div class='col-sm-1 col-xs-6'><input class='points " + players[i].name.split(" ")[0] + (i + 1) + "' type='number' onkeyup='updateScore()''></div>";
-            playerSet2[i].innerHTML += "<div class='cellLabel showXS col-xs-6'>Hole " + (j + 9) + ":</div>";
-            playerSet2[i].innerHTML += "<div class='col-sm-1 col-xs-6'><input class='points " + players[i].name.split(" ")[0] + (i + 1) + "' type='number' onkeyup='updateScore()''></div>";
-
-            //Add onkeyup to new elements that add to the out, in and total
-
-        }
-
-        playerSet1[i].innerHTML += "<div class='cellLabel showXS col-xs-6'>Out:</div>"
-        playerSet1[i].innerHTML += "<div class='col-sm-1 col-xs-6 scoreOut'>0</div>";
-        playerSet2[i].innerHTML += "<div class='cellLabel showXS col-xs-6'>In:</div>"
-        playerSet2[i].innerHTML += "<div class='col-sm-1 col-xs-6 scoreIn'>0</div>";
-
-    }
-    // $(".player input").keyup(function (event, value) {
-    //     console.log(value);
-    // });
-
-    var addPlayerList = document.getElementById("addPlayerList");
-    addPlayerList.innerHTML = "";
     count = 1;
 
     $("#addPlayer").modal("hide");
 
 }
 
-function updateScore() {
+function updateScore(name, value, type, index) {
 
-    var players1 = $(".playerContainer")[0].getElementsByClassName("player");
-    var players2 = $(".playerContainer")[1].getElementsByClassName("player");
+    var playerRow1, playerRow2;
+    var player;
 
-    for (var i = 0; i < players1.length; i++) {
-        var points1 = players1[i].getElementsByClassName("points");
-        var score1 = players1[i].getElementsByClassName("scoreOut")[0];
-        var points2 = players2[i].getElementsByClassName("points");
-        var score2 = players2[i].getElementsByClassName("scoreIn")[0];
-        var pointsOut = 0, pointsIn = 0, totalPoints = 0;
-        for (var j = 0; j < points1.length; j++) {
-            pointsOut += Number(points1[j].value);
-            pointsIn += Number(points2[j].value);
+    for (var playerIndex = 0; playerIndex < players.length; playerIndex++) {
+        if ($(".playerContainer")[0].getElementsByClassName("player")[playerIndex].getElementsByClassName("labelText")[0].innerHTML == name) {
+            playerRow1 = $(".playerContainer")[0].getElementsByClassName("player")[playerIndex];
+            playerRow2 = $(".playerContainer")[1].getElementsByClassName("player")[playerIndex];
+            player = players[playerIndex];
+            break;
         }
-        totalPoints = pointsOut + pointsIn;
-        score1.innerHTML = pointsOut;
-        score2.innerHTML = pointsIn;
     }
+
+    player.holePoints[index] = value;
+
+    var outPoints = 0, inPoints = 0;
+
+    for (var pointInd = 0; pointInd < player.holePoints.length; pointInd++) {
+        if (pointInd) {
+
+        }
+    }
+
+    if (index == holes.length) {
+
+    }
+
 
 }
 

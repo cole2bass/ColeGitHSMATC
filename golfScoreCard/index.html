@@ -254,7 +254,7 @@
                         <div id="menMeters" class="row men meterRow">
                             <div class="labelText col-sm-12 col-md-2 col-xs-12">Meters(Men)</div>
                             <div class="cellLabel showXS col-xs-6">Hole 1:</div>
-                            <div class="meter col-sm-1 col-xs-6">0</div>
+                            <div class="meters col-sm-1 col-xs-6">0</div>
                             <div class="cellLabel showXS col-xs-6">Hole 2:</div>
                             <div class="meters col-sm-1 col-xs-6">0</div>
                             <div class="cellLabel showXS col-xs-6">Hole 3:</div>
@@ -785,22 +785,24 @@
 
                 <div id="prevName" class="alert alert-danger">A name has been put in previously!</div>
 
-                <div class="playerToAdd">
+                <div id="addPlayerList">
 
-                    <label>Add New Player:</label>
-                    <input title="name" type="text" name="addPlayer" onkeyup="validateName()">
-                    <select class="selectTee">
-                        <option selected>Select a Tee Type Please</option>
-                        <option value="pro">Pro</option>
-                        <option value="champion">Champion</option>
-                        <option value="men">Men</option>
-                        <option value="women">Women</option>
-                        <!-- <option>amateur</option> -->
-                    </select>
+                    <div class="playerToAdd">
+
+                        <label>Add New Player:</label>
+                        <input title="name" type="text" name="addPlayer" onkeyup="validateName()">
+                        <select class="selectTee">
+                            <option selected>Select a Tee Type Please</option>
+                            <option value="pro">Pro</option>
+                            <option value="champion">Champion</option>
+                            <option value="men">Men</option>
+                            <option value="women">Women</option>
+                            <!-- <option>amateur</option> -->
+                        </select>
+
+                    </div>
 
                 </div>
-
-                <div id="addPlayerList"></div>
 
                 <button type="button" id="addPlayerAddList" class="btn btn-default" onclick="addPlayerToAdd()">Add New Player to Add</button>
 
@@ -825,12 +827,13 @@
                 <div id="playerList">
 
 
+
                 </div>
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button"  class="btn btn-danger">Delete Players</button>
+                <button type="button" class="btn btn-danger">Delete Players</button>
             </div>
         </div>
     </div>

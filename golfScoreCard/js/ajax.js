@@ -164,6 +164,7 @@ function updateCard(id) {
                     updatePar();
                     updateMeasureType(courseSelected.measurement_type);
                     updateYardMeter();
+                    updateHandicap();
                     // updateMeasurement()
                 }
 
@@ -207,51 +208,137 @@ function updateCard(id) {
 
         //For updating the yards section
         for (var i = 0; i < holes.length; i++) {
+
+            var typeEnum = {
+                PRO: "pro",
+                CHAMP: "champion",
+                MEN: "men",
+                WOMEN: "women"
+            }
+
             for (var j = 0; j < holes[i].tee_boxes.length; j++) {
 
-            }
-            $(".pro.yardageRow>.yards")[i].innerHTML = holes[i].tee_boxes[0].yards;
-            $(".champion.yardageRow>.yards")[i].innerHTML = holes[i].tee_boxes[1].yards;
-            $(".men.yardageRow>.yards")[i].innerHTML = holes[i].tee_boxes[2].yards;
-            $(".women.yardageRow>.yards")[i].innerHTML = holes[i].tee_boxes[3].yards;
-            if (i < 9) {
-                proOut += Number(holes[i].tee_boxes[0].yards);
-                champOut += Number(holes[i].tee_boxes[1].yards);
-                menOut += Number(holes[i].tee_boxes[2].yards);
-                womenOut += Number(holes[i].tee_boxes[3].yards);
-            }
-            else if (i >= 9 && i < 18) {
-                proIn += Number(holes[i].tee_boxes[0].yards);
-                champIn += Number(holes[i].tee_boxes[1].yards);
-                menIn += Number(holes[i].tee_boxes[2].yards);
-                womenIn += Number(holes[i].tee_boxes[3].yards);
+                var teeBox = holes[i].tee_boxes[j].tee_type;
+
+                switch (teeBox) {
+                    case typeEnum.PRO:
+                        $(".pro.yardageRow>.yards")[i].innerHTML = holes[i].tee_boxes[j].yards;
+                        if (i < 9) {
+                            proOut += holes[i].tee_boxes[j].yards;
+                        }
+                        else if (i >= 9 && i < 18) {
+                            proIn += holes[i].tee_boxes[j].yards;
+                        }
+                        break;
+                    case typeEnum.CHAMP:
+                        $(".champion.yardageRow>.yards")[i].innerHTML = holes[i].tee_boxes[j].yards;
+                        if (i < 9) {
+                            champOut += Number(holes[i].tee_boxes[j].yards);
+                        }
+                        else if (i >= 9 && i < 18) {
+                            champIn += Number(holes[i].tee_boxes[j].yards);
+                        }
+                        break;
+                    case typeEnum.MEN:
+                        $(".men.yardageRow>.yards")[i].innerHTML = holes[i].tee_boxes[j].meters;
+                        if (i < 9) {
+                            menOut += Number(holes[i].tee_boxes[j].yards);
+                        }
+                        else if (i >= 9 && i < 18) {
+                            menIn += Number(holes[i].tee_boxes[j].yards);
+                        }
+                        break;
+                    case typeEnum.WOMEN:
+                        $(".women.yardageRow>.yards")[i].innerHTML = holes[i].tee_boxes[j].meters;
+                        if (i < 9) {
+                            womenOut += Number(holes[i].tee_boxes[j].yards);
+                        }
+                        else if (i >= 9 && i < 18) {
+                            womenIn += Number(holes[i].tee_boxes[j].yards);
+                        }
+                        break;
+                }
+
             }
 
         }
+
+        $("#outProYardage").html(""+proOut);
+        $("#outChampYardage").html(""+champOut);
+        $("#outMenYardage").html(""+menOut);
+        $("#outWomenYardage").html(""+womenOut);
+        $("#inProYardage").html(""+proIn);
+        $("#inChampYardage").html(""+champIn);
+        $("#inMenYardage").html(""+menIn);
+        $("#inWomenYardage").html(""+womenIn);
 
         proOut = champOut = menOut = womenOut = 0;
         proIn = champIn = menIn = womenIn = 0;
 
         //For updating the meters section
         for (var i = 0; i < holes.length; i++) {
-            $(".pro.meterRow>.meters")[i].innerHTML = holes[i].tee_boxes[0].meters;
-            $(".champion.yardageRow>.meters")[i].innerHTML = holes[i].tee_boxes[1].meters;
-            $(".men.yardageRow>.meters")[i].innerHTML = holes[i].tee_boxes[2].meters;
-            $(".women.yardageRow>.meters")[i].innerHTML = holes[i].tee_boxes[3].meters;
 
-            if (i < 9) {
-                proOut += holes[i].tee_boxes[0].meters;
-                champOut += Number(holes[i].tee_boxes[1].meters);
-                menOut += Number(holes[i].tee_boxes[2].meters);
-                womenOut += Number(holes[i].tee_boxes[3].meters);
+            var typeEnum = {
+                PRO: "pro",
+                CHAMP: "champion",
+                MEN: "men",
+                WOMEN: "women"
             }
-            else if (i >= 9 && i < 18) {
-                proIn += holes[i].tee_boxes[0].meters;
-                champIn += Number(holes[i].tee_boxes[1].meters);
-                menIn += Number(holes[i].tee_boxes[2].meters);
-                womenIn += Number(holes[i].tee_boxes[3].meters);
+
+            for (var j = 0; j < holes[i].tee_boxes.length; j++) {
+
+                var teeBox = holes[i].tee_boxes[j].tee_type;
+
+                switch (teeBox) {
+                    case typeEnum.PRO:
+                        $(".pro.meterRow>.meters")[i].innerHTML = holes[i].tee_boxes[j].meters;
+                        if (i < 9) {
+                            proOut += holes[i].tee_boxes[0].meters;
+                        }
+                        else if (i >= 9 && i < 18) {
+                            proIn += holes[i].tee_boxes[0].meters;
+                        }
+                        break;
+                    case typeEnum.CHAMP:
+                        $(".champion.meterRow>.meters")[i].innerHTML = holes[i].tee_boxes[j].meters;
+                        if (i < 9) {
+                            champOut += Number(holes[i].tee_boxes[1].meters);
+                        }
+                        else if (i >= 9 && i < 18) {
+                            champIn += Number(holes[i].tee_boxes[1].meters);
+                        }
+                        break;
+                    case typeEnum.MEN:
+                        $(".men.meterRow>.meters")[i].innerHTML = holes[i].tee_boxes[j].meters;
+                        if (i < 9) {
+                            menOut += Number(holes[i].tee_boxes[2].meters);
+                        }
+                        else if (i >= 9 && i < 18) {
+                            menIn += Number(holes[i].tee_boxes[2].meters);
+                        }
+                        break;
+                    case typeEnum.WOMEN:
+                        $(".women.meterRow>.meters")[i].innerHTML = holes[i].tee_boxes[j].meters;
+                        if (i < 9) {
+                            womenOut += Number(holes[i].tee_boxes[3].meters);
+                        }
+                        else if (i >= 9 && i < 18) {
+                            womenIn += Number(holes[i].tee_boxes[3].meters);
+                        }
+                        break;
+
+                }
             }
         }
+
+        $("#outProMeters").html(""+proOut);
+        $("#outChampMeters").html(""+champOut);
+        $("#outMenMeters").html(""+menOut);
+        $("#outWomenMeters").html(""+womenOut);
+        $("#inProMeters").html(""+proIn);
+        $("#inChampMeters").html(""+champIn);
+        $("#inMenMeters").html(""+menIn);
+        $("#inWomenMeters").html(""+womenIn);
 
     }
 
@@ -286,6 +373,12 @@ function updateCard(id) {
     }
 
     function updateHandicap() {
+
+        var holes = courseSelected.holes;
+
+        for (var i = 0; i < holes.length; i++) {
+            $(".handy")[i].innerHTML = holes[i].tee_boxes[0].hcp;
+        }
 
     }
 

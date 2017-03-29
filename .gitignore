@@ -4,4 +4,8 @@ logs
 .idea/
 *.tmp
 
+node_modules/*/*.*
+
+package.json
+
 .DS_Store

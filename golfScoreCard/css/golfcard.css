@@ -197,6 +197,18 @@ div.row {
     margin: 30px auto;
 }
 
+#parTotal {
+    font-size: 45px;
+}
+
+#parTotalBox {
+    display: flex;
+}
+
+#totalParLabel {
+    padding-right: 15px;
+}
+
 #topTitle {
     color: darkorange;
     font-family: 'Playfair Display', serif;
