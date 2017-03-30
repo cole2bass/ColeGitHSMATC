@@ -33,6 +33,7 @@ function initMap() {
         position: location2,
         map: map,
         label: {text: "Tee Off", color: "brown"}
+        // icon: "img/flagIcon1.png"
 
     });
 

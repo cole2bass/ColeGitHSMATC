@@ -9,6 +9,8 @@ var currentLocation;
 
 var hdata = [];
 
+var totalPar;
+
 var HoleData = function (position1, position2) {
 
     this.position1 = position1;
@@ -369,6 +371,7 @@ function updateCard(id) {
         $("#parOut").html(parOut);
         $("#parIn").html(parIn);
         $("#parTotal").html(parOut + parIn);
+        totalPar = parOut + parIn;
 
     }
 

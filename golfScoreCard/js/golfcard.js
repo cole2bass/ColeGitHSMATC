@@ -19,7 +19,7 @@ function addPlayerToAdd() {
         "<label>Add New Player:</label>"+
         "<input title='name' type='text' name='addPlayer' onkeyup='validateName()'>"+
         "<select class='selectTee'>"+
-        "<option selected>Select a Tee Type Please</option>"+
+        "<option selected val=''>Select a Tee Type Please</option>"+
         "<option value='pro'>Pro</option>"+
         "<option value='champion'>Champion</option>"+
         "<option value='men'>Men</option>"+
@@ -47,6 +47,14 @@ function addPlayers() {
     var inputList = [];
     var selectList = $(".selectTee")
     var displayedList = [];
+
+    if (teeTypeNotSelected()) {
+        $("#teeTypeNotSel").css("display", "block");
+        setTimeout(function() {
+            $("#teeTypeNotSel").css("display", "none");
+        }, 3000);
+        return;
+    }
 
     for (var i = 0; i < $(".playerToAdd").length; i++) {
         if ($(".playerToAdd")[i].style.display != "none") {
@@ -91,6 +99,7 @@ function addPlayers() {
                 //Start adding content.
                 var playerRow1 = playerList1[playerInd];
                 var playerRow2 = playerList2[playerInd];
+                var player = players[playerInd];
                 playerRow1.className += " "+players[playerInd].teeType;
                 playerRow2.className += " "+players[playerInd].teeType;
                 playerRow1.innerHTML += "<div class='labelText col-sm-12 col-md-2'>" + players[playerInd].name + "</div>";
@@ -99,8 +108,8 @@ function addPlayers() {
                 for (var i = 0; i < 9; i++) {
                     playerRow1.innerHTML += "<div class='cellLabel showXS col-xs-6'>Hole " + (i + 1) +":</div>";
                     playerRow2.innerHTML += "<div class='cellLabel showXS col-xs-6'>Hole " + (i + 9) +":</div>";
-                    playerRow1.innerHTML += "<div class='col-sm-1 col-xs-6'><input type='number' data-hole-type='out' data-player-name='" + players[playerInd].name +"' onkeyup='updateScore(data-player-name, value, " + i + ")'></div>";
-                    playerRow2.innerHTML += "<div class='col-sm-1 col-xs-6'><input type='number' data-hole-type='in' data-player-name='" + players[playerInd].name +"' onkeyup='updateScore(data-player-name, value, " + (i+9) + ")'></div>";
+                    playerRow1.innerHTML += "<div class='col-sm-1 col-xs-6'><input type='number' data-hole-type='out' data-player-name='" + players[playerInd].name +"' onkeyup='updateScore(\""+player.name+"\", value, " + (i) + ")'></div>";
+                    playerRow2.innerHTML += "<div class='col-sm-1 col-xs-6'><input type='number' data-hole-type='in' data-player-name='" + players[playerInd].name +"' onkeyup='updateScore(\""+player.name+"\", value, " + (i+9) + ")'></div>";
                 }
                 playerRow1.innerHTML += "<div class='cellLabel showXS col-xs-6'>Out:</div>";
                 playerRow2.innerHTML += "<div class='cellLabel showXS col-xs-6'>In:</div>";
@@ -162,7 +171,7 @@ function addPlayers() {
         "<label>Add New Player:</label>"+
         "<input title='name' type='text' name='addPlayer' onkeyup='validateName()'>"+
         "<select class='selectTee'>"+
-        "<option selected>Select a Tee Type Please</option>"+
+        "<option selected value=''>Select a Tee Type Please</option>"+
         "<option value='pro'>Pro</option>"+
         "<option value='champion'>Champion</option>"+
         "<option value='men'>Men</option>"+
@@ -190,23 +199,23 @@ function updateScore(name, value, index) {
         if ($(".playerContainer")[0].getElementsByClassName("player")[playerIndex].getElementsByClassName("labelText")[0].innerHTML == name) {
             playerRow1 = $(".playerContainer")[0].getElementsByClassName("player")[playerIndex];
             playerRow2 = $(".playerContainer")[1].getElementsByClassName("player")[playerIndex];
-            playerTotalScore = $("#totalContainer").getElementsByClassName("totalPlayerScore")[playerIndex];
+            playerTotalScore = $("#totalContainer").find(".totalPlayerScore")[playerIndex];
             player = players[playerIndex];
             break;
         }
     }
 
-    player.holePoints[index] = value;
+    player.holePoints[index] = Number(value);
 
     var outPoints = 0, inPoints = 0;
     var total;
 
     for (var pointInd = 0; pointInd < player.holePoints.length; pointInd++) {
         if (pointInd < 9) {
-            outPoints += player.holePoints[pointInd];
+            outPoints += Number(player.holePoints[pointInd]);
         }
         else if (pointInd >= 9 && pointInd < 18) {
-            inPoints += player.holePoints[pointInd];
+            inPoints += Number(player.holePoints[pointInd]);
         }
     }
 
@@ -218,7 +227,7 @@ function updateScore(name, value, index) {
     playerTotalScore.innerHTML = total;
 
 
-    if (index == holes.length - 1) {
+    if (holes != undefined && index == holes.length - 1) {
         if (player.score <= totalPar) {
             alert(player.name + ", great game!  Good job!")
         }
@@ -293,6 +302,27 @@ function validateName() {
         return false;
 
     }
+
+}
+
+function teeTypeNotSelected() {
+
+    var teeValArr = [];
+
+
+    for (var teeInd = 0; teeInd < $(".playerToAdd").length; teeInd++) {
+        if ($(".playerToAdd")[teeInd].style.display != "none") {
+            teeValArr.push($(".selectTee")[teeInd].value)
+        }
+    }
+
+    for (var teeInd = 0; teeInd < teeValArr.length; teeInd++) {
+        if (teeValArr[teeInd] == "") {
+            return true;
+        }
+    }
+
+    return false;
 
 }
 
