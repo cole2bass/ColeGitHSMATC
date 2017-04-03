@@ -219,7 +219,12 @@ function updateScore(name, value, index) {
         }
     }
 
-    total = outPoints + inPoints;
+    total = outPoints;
+
+    if (holes.length > 9) {
+        total += inPoints;
+    }
+
     player.score = total;
 
     playerRow1.getElementsByClassName("playerOut")[0].innerHTML = outPoints;

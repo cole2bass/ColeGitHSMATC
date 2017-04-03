@@ -60,6 +60,17 @@ body {
     font-weight: bold;
 }
 
+.holeRow a{
+    text-decoration: none;
+    color: rgb(235,150,0);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.holeRow a:hover {
+    color: rgb(225,125,0);
+}
+
 .labelText {
     font-weight: bold;
     font-size: 20px;
@@ -117,6 +128,10 @@ div.row {
     text-align: center;
 }
 
+.player.pro input {
+    color: black;
+}
+
 .playerLabel {
     font-size: 24px;
 }
@@ -145,6 +160,14 @@ div.row {
 .playerToAdd {
     margin-left: 18px;
     margin-bottom: 10px;
+}
+
+.playerToAdd label {
+    margin-right: 12px;
+}
+
+.playerToAdd > input[type="text"] {
+    margin-right: 10px;
 }
 
 .pro {
@@ -221,6 +244,11 @@ div.row {
     display: flex;
 }
 
+#tempSel {
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
 #totalParLabel {
     padding-right: 15px;
 }
@@ -236,6 +264,24 @@ div.row {
 
 #selectCourse {
     margin: 10px;
+}
+
+#weatherDiv {
+    border-style: solid;
+    margin-bottom: 30px;
+    width: 360px;
+    padding: 10px;
+}
+
+#weatherLabel {
+    font-size: 40px;
+    color: rgba(125,125,125,.35);
+    text-shadow: 2px 2px 5px;
+}
+
+#weatherMeta {
+    display: flex;
+    margin-bottom: 20px;
 }
 
 #yardsOrMeters {

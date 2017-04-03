@@ -14,6 +14,8 @@
 
     <link rel="stylesheet" href="css/golfcard.css">
 
+
+    <!-- Jquery -->
     <script
             src="https://code.jquery.com/jquery-3.2.0.min.js"
             integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I="
@@ -23,7 +25,10 @@
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWibKgS_OKd0IXSwKKF49-quv520kgplk&callback=initMap">
     </script>
 
+    <!-- Custom JavaScript -->
     <script src="js/ajax.js"></script>
+
+    <script src="js/weatherAJAX.js"></script>
 
     <script src="js/map.js"></script>
 
@@ -37,7 +42,9 @@
 
     <div id="courseSelContainer">
 
-        <select title="courseSelect" id="selectCourse" onchange="updateCard(value)"></select>
+        <select title="courseSelect" id="selectCourse" onchange="updateCard(value)">
+            <option>Please wait for Courses to Load</option>
+        </select>
 
         <button type="button" onclick="getCourseGeoLocation()">Reset Location</button>
 
@@ -50,6 +57,27 @@
             <option value="meters">Meters</option>
 
         </select>
+
+    </div>
+
+    <div id="weatherMeta">
+        <div id="weatherLabel">
+            Weather
+        </div>
+        <div id="tempDegSelect">
+
+            <select title="tempDegSel" id="tempSel" onchange="setTempStandard(value)">
+
+                <option selected value="F">Fahrenheit</option>
+                <option value="C">Celsius</option>
+                <option value="K">Kelvin</option>
+
+            </select>
+
+        </div>
+    </div>
+
+    <div id="weatherDiv">
 
     </div>
 

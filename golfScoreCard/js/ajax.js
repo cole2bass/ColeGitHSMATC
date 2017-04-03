@@ -167,7 +167,8 @@ function updateCard(id) {
                     updateMeasureType(courseSelected.measurement_type);
                     updateYardMeter();
                     updateHandicap();
-                    // updateMeasurement()
+                    cityName = courseSelected.city;
+                    getWeather();
                 }
 
             };
@@ -273,6 +274,10 @@ function updateCard(id) {
         $("#inChampYardage").html(""+champIn);
         $("#inMenYardage").html(""+menIn);
         $("#inWomenYardage").html(""+womenIn);
+
+        if (proOut == 0) {
+
+        }
 
         proOut = champOut = menOut = womenOut = 0;
         proIn = champIn = menIn = womenIn = 0;
