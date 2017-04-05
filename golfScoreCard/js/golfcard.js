@@ -48,14 +48,6 @@ function addPlayers() {
     var selectList = $(".selectTee")
     var displayedList = [];
 
-    if (teeTypeNotSelected()) {
-        $("#teeTypeNotSel").css("display", "block");
-        setTimeout(function() {
-            $("#teeTypeNotSel").css("display", "none");
-        }, 3000);
-        return;
-    }
-
     for (var i = 0; i < $(".playerToAdd").length; i++) {
         if ($(".playerToAdd")[i].style.display != "none") {
             displayedList.push($(".playerToAdd")[i]);
@@ -79,81 +71,18 @@ function addPlayers() {
     }
 
     if (names.length == inputList.length && validateName()) {
-        for (var playerInd = 0; playerInd < names.length; playerInd++) {
-            players.push(new Player(names[playerInd], tee_types[playerInd]));
+        if (teeTypeNotSelected()) {
+            $("#teeTypeNotSel").css("display", "block");
+            setTimeout(function() {
+                $("#teeTypeNotSel").css("display", "none");
+            }, 3000);
+            return;
         }
-
-        var playerContainer1 = $(".playerContainer")[0], playerContainer2 = $(".playerContainer")[1];
-
-        for (var playerInd = 0; playerInd < names.length; playerInd++) {
-            playerContainer1.innerHTML += "<div class='row player'></div>";
-            playerContainer2.innerHTML += "<div class='row player'></div>";
-        }
-
-        var playerList1 = playerContainer1.getElementsByClassName("player");
-        var playerList2 = playerContainer2.getElementsByClassName("player");
-
-        for (var playerInd = 0; playerInd < playerList1.length; playerInd++) {
-            if (playerList1[playerInd].innerHTML == "" && playerList2[playerInd].innerHTML == "") {
-
-                //Start adding content.
-                var playerRow1 = playerList1[playerInd];
-                var playerRow2 = playerList2[playerInd];
-                var player = players[playerInd];
-                playerRow1.className += " "+players[playerInd].teeType;
-                playerRow2.className += " "+players[playerInd].teeType;
-                playerRow1.innerHTML += "<div class='labelText col-sm-12 col-md-2'>" + players[playerInd].name + "</div>";
-                playerRow2.innerHTML += "<div class='labelText col-sm-12 col-md-2'>" + players[playerInd].name + "</div>";
-
-                for (var i = 0; i < 9; i++) {
-                    playerRow1.innerHTML += "<div class='cellLabel showXS col-xs-6'>Hole " + (i + 1) +":</div>";
-                    playerRow2.innerHTML += "<div class='cellLabel showXS col-xs-6'>Hole " + (i + 9) +":</div>";
-                    playerRow1.innerHTML += "<div class='col-sm-1 col-xs-6'><input type='number' data-hole-type='out' data-player-name='" + players[playerInd].name +"' onkeyup='updateScore(\""+player.name+"\", value, " + (i) + ")'></div>";
-                    playerRow2.innerHTML += "<div class='col-sm-1 col-xs-6'><input type='number' data-hole-type='in' data-player-name='" + players[playerInd].name +"' onkeyup='updateScore(\""+player.name+"\", value, " + (i+9) + ")'></div>";
-                }
-                playerRow1.innerHTML += "<div class='cellLabel showXS col-xs-6'>Out:</div>";
-                playerRow2.innerHTML += "<div class='cellLabel showXS col-xs-6'>In:</div>";
-                playerRow1.innerHTML += "<div class='playerOut'>0</div>";
-                playerRow2.innerHTML += "<div class='playerIn'>0</div>";
-
-
-            }
-        }
-
-        $("#totalContainer").html("");
-
-        var totalContainer = document.getElementById("totalContainer");
-
-        //Start adding stuff for the total Table
-        for (var playerInd = 1; playerInd <= players.length; playerInd++) {
-            if (playerInd % 5 == 1) {
-                totalContainer.innerHTML += "<div class='row totalNameRow'></div>";
-                totalContainer.innerHTML += "<div class='row totalScoreRow'></div>";
-            }
-        }
-
-        var totalNameRows = $(".totalNameRow");
-        var totalScoreRows = $(".totalScoreRow");
-
-        var rowCount = 0;
-
-        for (var playerInd = 0; playerInd < players.length; playerInd++){
-            if (playerInd % 5 == 0 && playerInd > 0) {
-                rowCount++;
-            }
-            totalNameRows[rowCount].innerHTML += "<div class='totalPlayerName'></div>"
-            totalScoreRows[rowCount].innerHTML+= "<div class='totalPlayerScore'></div>"
-        }
-
-        var totalNames = totalContainer.getElementsByClassName("totalPlayerName");
-        var totalScores = totalContainer.getElementsByClassName("totalPlayerScore");
-
-        for (var playerInd = 0; playerInd < players.length; playerInd++) {
-            totalNames[playerInd].className += " "+players[playerInd].teeType;
-            totalNames[playerInd].innerHTML = players[playerInd].name;
-            totalScores[playerInd].innerHTML = players[playerInd].score;
-        }
-
+        appendNewPlayers(names, tee_types);
+        setupPlayerTable();
+        setupTotalTable();
+        setupDeleteModal();
+        setupScoreModal();
     }
     else if (names.length != inputList.length) {
         $("#anotherName").css("display", "block");
@@ -328,6 +257,202 @@ function teeTypeNotSelected() {
     }
 
     return false;
+
+}
+
+function appendNewPlayers(names, tees) {
+    for (var playerInd = 0; playerInd < names.length; playerInd++) {
+        players.push(new Player(names[playerInd], tees[playerInd]));
+    }
+}
+
+function setupPlayerTable() {
+    var playerContainer1 = $(".playerContainer")[0], playerContainer2 = $(".playerContainer")[1];
+
+    playerContainer1.innerHTML = "";
+    playerContainer2.innerHTML = "";
+
+    for (var playerInd = 0; playerInd < players.length; playerInd++) {
+        addRow(playerContainer1);
+        addRow(playerContainer2);
+    }
+
+    var playerList1 = playerContainer1.getElementsByClassName("player");
+    var playerList2 = playerContainer2.getElementsByClassName("player");
+
+    for (var rowInd = 0; rowInd < playerList1.length; rowInd++) {
+        setPlayerRow(playerList1, rowInd, false, true);
+        setPlayerRow(playerList2, rowInd, true, false);
+    }
+
+    function addRow(element){
+        element.innerHTML += "<div class='row player'></div>";
+    }
+
+    function setPlayerRow(elementList, index, addNine, out){
+        var row = elementList[index];
+        var addNum = addNine ? 9 : 1;
+        var type = out ? "Out" : "In";
+        var totalRowClass = "", totalScore = 0;
+        switch (type) {
+            case "Out":
+                totalRowClass = "playerOut";
+                totalScore = players[index].out;
+                break;
+            case "In":
+                totalRowClass = "playerIn";
+                totalScore = players[index].in;
+                break;
+        }
+        row.className += " " + players[index].teeType;
+        row.innerHTML += "<div class='labelText col-sm-2'>" + players[index].name + "</div>";
+        for (var i = 0; i < 9; i++) {
+            row.innerHTML += "<div class='cellLabel showXS col-xs-6'>Hole " + (i + addNum) + ":</div>"
+            row.innerHTML += "<div class='col-sm-1 col-xs-6'><input type='number' value='" + players[index].holePoints[i] +"' onkeyup='updateScore(\"" + players[index].name + "\", value, " + (i + addNum - 1) + ")'>"
+        }
+        row.innerHTML += "<div class='cellLabel showXS col-xs-6'>" + type + "</div>";
+        row.innerHTML += "<div class='" + totalRowClass +"'>" + totalScore +"</div>"
+    }
+
+}
+
+function setupDeleteModal() {
+    //Add stuff to delete modal
+
+    $("#deletePlayer #playerList").html("");
+
+    for (var playerInd = 0; playerInd < players.length; playerInd++) {
+        $("#deletePlayer #playerList").append("<div class='playerToDelete'></div>");
+    }
+
+    for (var divInd = 0; divInd < $(".playerToDelete").length; divInd++) {
+        $(".playerToDelete")[divInd].innerHTML = "<label>"+players[divInd].name+"</label><input type='checkbox'>";
+    }
+}
+
+function deletePlayers() {
+    var playerListDelete = [];
+    var initialList = $("#playerList .playerToDelete input[type='checkbox']");
+
+    for (var index = 0; index < initialList.length; index++) {
+        if (initialList[index].checked == true) {
+            playerListDelete.push(players[index])
+        }
+    }
+
+    if (playerListDelete.length == 0) {return;}
+    var newPlayers = [];
+    for (var playerIndex = 0; playerIndex < players.length; playerIndex++) {
+        if (singleMatchFromArr(players[playerIndex], playerListDelete)) {
+            continue;
+        }
+        else {
+            newPlayers.push(players[playerIndex]);
+        }
+    }
+
+    players = newPlayers;
+
+    setupPlayerTable();
+    setupTotalTable();
+
+    $("#deletePlayer").modal("hide");
+
+    setupDeleteModal();
+    setupScoreModal();
+
+    function singleMatchFromArr(player, arr) {
+        for (var playerInd = 0; playerInd < arr.length; playerInd++) {
+            if (player == arr[playerInd]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+}
+
+function setupTotalTable() {
+    $("#totalContainer").html("");
+
+    var totalContainer = document.getElementById("totalContainer");
+
+    //Start adding stuff for the total Table
+    for (var playerInd = 1; playerInd <= players.length; playerInd++) {
+        if (playerInd % 5 == 1) {
+            totalContainer.innerHTML += "<div class='row totalNameRow'></div>";
+            totalContainer.innerHTML += "<div class='row totalScoreRow'></div>";
+        }
+    }
+
+    var totalNameRows = $(".totalNameRow");
+    var totalScoreRows = $(".totalScoreRow");
+
+    var rowCount = 0;
+
+    for (var playerInd = 0; playerInd < players.length; playerInd++){
+        if (playerInd % 5 == 0 && playerInd > 0) {
+            rowCount++;
+        }
+        totalNameRows[rowCount].innerHTML += "<div class='totalPlayerName'></div>"
+        totalScoreRows[rowCount].innerHTML+= "<div class='totalPlayerScore'></div>"
+    }
+
+    var totalNames = totalContainer.getElementsByClassName("totalPlayerName");
+    var totalScores = totalContainer.getElementsByClassName("totalPlayerScore");
+
+    for (var playerInd = 0; playerInd < players.length; playerInd++) {
+        totalNames[playerInd].className += " "+players[playerInd].teeType;
+        totalNames[playerInd].innerHTML = players[playerInd].name;
+        totalScores[playerInd].innerHTML = players[playerInd].score;
+    }
+}
+
+function setupScoreModal() {
+    //Complete function where when a button is clicked on, it gets the player and adds info to #updateScoreMatrix to help a user update the score of the player
+    $("#listOPlayers").html("");
+
+    for (var playerInd = 0; playerInd < players.length; playerInd++) {
+        addRow();
+    }
+
+    for (var rowInd = 0; rowInd < $(".playerToUpdate").length; rowInd++) {
+        $(".playerToUpdate")[rowInd].innerHTML += "<label>" + players[rowInd].name +"</label><button onclick='setupMatrix(\"" + players[rowInd].name + "\")'>Update Player</button>";
+    }
+
+    function addRow() {
+        $("#listOPlayers").append("<div class='row playerToUpdate'></div>");
+    }
+
+}
+
+var playerSel;
+
+function setupMatrix(player) {
+
+    $("#updateScoreMatrix").html("");
+
+    for (var playerInd = 0; playerInd < players.length; playerInd++) {
+        if (players[playerInd].name == player) {
+            playerSel = players[playerInd];
+            break;
+        }
+    }
+
+    $("#updateScoreMatrix").append("<div id='headScorePlayer'>" + playerSel.name + "</div>");
+
+    for (var i = 0; i < 2; i++) {
+        $("#updateScoreMatrix").append("<div class='updateScoreRow'></div>");
+    }
+
+    for (var i = 0; i < 9; i++) {
+        if (holes.length > 9) {
+            $(".updateScoreRow")[1].innerHTML += "<label>Hole " + i + 9 + ":</label>"
+            $(".updateScoreRow")[1].innerHTML += "<input type='number' onkeyup='updateScore(\"" + playerSel.name + "\", value, " + i +")'>";
+        }
+        $(".updateScoreRow")[0].innerHTML += "<label>Hole " + i + 1 + ":</label>"
+        $(".updateScoreRow")[0].innerHTML += "<input type='number' onkeyup='updateScore(\"" + playerSel.name + "\", value, " + i + ")'>";
+    }
 
 }
 

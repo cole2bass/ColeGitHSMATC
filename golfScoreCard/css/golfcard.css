@@ -41,19 +41,19 @@ body {
     font-weight: bold;
 }
 
-.champion {
-    background-color: deepskyblue;
-}
-
 .container {
     background-color: rgba(255, 255, 255, 0.85);
     margin: 50px auto;
     border-radius: 20px;
 }
 
-.handyRow {
-    background-color: burlywood;
-}
+div.row {
+     border-style: solid;
+     border-width: 1px;
+     width: 100%;
+     margin: 0 auto;
+     text-align: center;
+ }
 
 .holeRow {
     background-color: rgb(255,225,0);
@@ -71,14 +71,35 @@ body {
     color: rgb(225,125,0);
 }
 
+.meterRow {
+     display: none;
+}
+
+.pro {
+      background-color: black;
+      color: white;
+  }
+
+.champion {
+      background-color: deepskyblue;
+  }
+
+.men {
+    background-color: white;
+}
+
+.women {
+    background-color: rgb(255, 100, 100);
+}
+
+.handyRow {
+    background-color: burlywood;
+}
+
 .labelText {
     font-weight: bold;
     font-size: 20px;
     text-align: left;
-}
-
-.men {
-    background-color: white;
 }
 
 .modal-body .alert {
@@ -97,14 +118,6 @@ body {
 .modalRemove:focus {
     color: rgb(230, 150, 150);
     text-decoration: none;
-}
-
-div.row {
-    border-style: solid;
-    border-width: 1px;
-    width: 100%;
-    margin: 0 auto;
-    text-align: center;
 }
 
 .parRow {
@@ -170,10 +183,17 @@ div.row {
     margin-right: 10px;
 }
 
-.pro {
-    background-color: black;
-    color: white;
+.playerToDelete {
+    border-bottom-style: solid;
 }
+
+.modal-body label {
+    font-size: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
 
 #addPlayerList>div.playerToAdd {
     margin-left: 10px;
@@ -211,17 +231,18 @@ div.row {
     background-color: rgb(255,165,100);
 }
 
-.women {
-    background-color: rgb(255, 100, 100);
-}
-
-.meterRow {
-    display: none;
+#topTitle {
+    color: darkorange;
+    font-family: 'Playfair Display', serif;
+    font-size: 65px;
+    margin: 20px auto;
+    margin-top: 40px;
+    text-align: center;
 }
 
 #addPlayerList label {
     padding: 8px;
-
+    font-size: 18px;
 }
 
 #mapBox {
@@ -236,6 +257,12 @@ div.row {
     margin: 30px auto;
 }
 
+#headScorePlayer {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
 #parTotal {
     font-size: 45px;
 }
@@ -243,6 +270,10 @@ div.row {
 #parTotalBox {
     display: flex;
 }
+
+#selectCourse {
+     margin: 10px;
+ }
 
 #tempSel {
     margin-left: 20px;
@@ -253,17 +284,8 @@ div.row {
     padding-right: 15px;
 }
 
-#topTitle {
-    color: darkorange;
-    font-family: 'Playfair Display', serif;
-    font-size: 65px;
-    margin: 20px auto;
-    margin-top: 40px;
-    text-align: center;
-}
-
-#selectCourse {
-    margin: 10px;
+#updateScoreMatrix input[type="number"]{
+    width: 60px;
 }
 
 #weatherDiv {
