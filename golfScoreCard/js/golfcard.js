@@ -14,12 +14,13 @@ function Player(name, teeType) {
 
 function addPlayerToAdd() {
 
+    var addPlayerList = document.getElementById("addPlayerList");
 
     $("#addPlayerList").append("<div id='player" + count + "' class='playerToAdd'>"+
         "<label>Add New Player:</label>"+
         "<input title='name' type='text' name='addPlayer' onkeyup='validateName()'>"+
         "<select class='selectTee'>"+
-        "<option selected val=''>Select a Tee Type Please</option>"+
+        "<option selected value='\"\"'>Select a Tee Type Please</option>"+
         "<option value='pro'>Pro</option>"+
         "<option value='champion'>Champion</option>"+
         "<option value='men'>Men</option>"+
@@ -45,7 +46,7 @@ function addPlayers() {
     var names = [];
     var tee_types = [];
     var inputList = [];
-    var selectList = $(".selectTee")
+    var selectList = $(".selectTee");
     var displayedList = [];
 
     for (var i = 0; i < $(".playerToAdd").length; i++) {
@@ -88,7 +89,7 @@ function addPlayers() {
         $("#anotherName").css("display", "block");
         setTimeout(function () {
             $("#anotherName").css("display", "none");
-        }, 3000)
+        }, 3000);
         return;
     }
     else if (!validateName()) {
@@ -158,6 +159,10 @@ function updateScore(name, value, index) {
 
     playerRow1.getElementsByClassName("playerOut")[0].innerHTML = outPoints;
     playerRow2.getElementsByClassName("playerIn")[0].innerHTML = inPoints;
+    for (var colInd = 0; colInd < 9; colInd++) {
+        playerRow1.getElementsByTagName("input")[colInd].value = player.holePoints[colInd];
+        playerRow2.getElementsByTagName("input")[colInd].value = player.holePoints[colInd + 9];
+    }
     playerTotalScore.innerHTML = total;
 
 
@@ -251,7 +256,7 @@ function teeTypeNotSelected() {
     }
 
     for (var teeInd = 0; teeInd < teeValArr.length; teeInd++) {
-        if (teeValArr[teeInd] == "") {
+        if (teeValArr[teeInd] == "" || teeValArr[teeInd] == "Select a Tee Type Please") {
             return true;
         }
     }
@@ -447,10 +452,10 @@ function setupMatrix(player) {
 
     for (var i = 0; i < 9; i++) {
         if (holes.length > 9) {
-            $(".updateScoreRow")[1].innerHTML += "<label>Hole " + i + 9 + ":</label>"
+            $(".updateScoreRow")[1].innerHTML += "<label>Hole " + (i + 9) + ":</label>"
             $(".updateScoreRow")[1].innerHTML += "<input type='number' onkeyup='updateScore(\"" + playerSel.name + "\", value, " + i +")'>";
         }
-        $(".updateScoreRow")[0].innerHTML += "<label>Hole " + i + 1 + ":</label>"
+        $(".updateScoreRow")[0].innerHTML += "<label>Hole " + (i + 1) + ":</label>"
         $(".updateScoreRow")[0].innerHTML += "<input type='number' onkeyup='updateScore(\"" + playerSel.name + "\", value, " + i + ")'>";
     }
 

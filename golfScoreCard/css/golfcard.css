@@ -193,8 +193,6 @@ div.row {
     margin-right: 10px;
 }
 
-
-
 #addPlayerList>div.playerToAdd {
     margin-left: 10px;
 }
@@ -285,7 +283,7 @@ div.row {
 }
 
 #updateScoreMatrix input[type="number"]{
-    width: 60px;
+    width: 85px;
 }
 
 #weatherDiv {
