@@ -11,8 +11,8 @@ var location2 = {
 };
 
 var center = {
-    lat: 0,
-    lng: 0
+    lat: 40.4196423,
+    lng: -111.8866683
 };
 
 function displayHole(index) {
@@ -31,7 +31,7 @@ function displayHole(index) {
 
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 16,
+        zoom: 15,
         center: center,
         mapTypeId: google.maps.MapTypeId.SATELLITE
     });
@@ -45,8 +45,10 @@ function initMap() {
         map: map,
         label: {text: "Tee Off", color: "white"}
         // icon: "img/flagIcon1.png"
-
     });
-
+    while (map.getBounds().contains(marker1.getPosition()) && map.getBounds().contains(marker2.getPosition())) {
+        map.setZoom(map.getZoom()+1);
+    }
+    map.setZoom(map.getZoom() - 1)
 
 }

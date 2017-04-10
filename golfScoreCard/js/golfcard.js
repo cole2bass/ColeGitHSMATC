@@ -312,8 +312,14 @@ function setupPlayerTable() {
         row.className += " " + players[index].teeType;
         row.innerHTML += "<div class='labelText col-sm-2'>" + players[index].name + "</div>";
         for (var i = 0; i < 9; i++) {
-            row.innerHTML += "<div class='cellLabel showXS col-xs-6'>Hole " + (i + addNum) + ":</div>"
-            row.innerHTML += "<div class='col-sm-1 col-xs-6'><input type='number' value='" + players[index].holePoints[i] +"' onkeyup='updateScore(\"" + players[index].name + "\", value, " + (i + addNum - 1) + ")'>"
+            row.innerHTML += "<div class='cellLabel showXS col-xs-6'>Hole " + (i + addNum) + ":</div>";
+            if (addNine) {
+                row.innerHTML += "<div class='col-sm-1 col-xs-6'><input type='number' value='" + players[index].holePoints[i] + "' onkeyup='updateScore(\"" + players[index].name + "\", value, " + (i + addNum) + ")'>";
+            }
+            else {
+                row.innerHTML += "<div class='col-sm-1 col-xs-6'><input type='number' value='" + players[index].holePoints[i] + "' onkeyup='updateScore(\"" + players[index].name + "\", value, " + (i) + ")'>";
+            }
+
         }
         row.innerHTML += "<div class='cellLabel showXS col-xs-6'>" + type + "</div>";
         row.innerHTML += "<div class='" + totalRowClass +"'>" + totalScore +"</div>"
@@ -452,8 +458,8 @@ function setupMatrix(player) {
 
     for (var i = 0; i < 9; i++) {
         if (holes.length > 9) {
-            $(".updateScoreRow")[1].innerHTML += "<label>Hole " + (i + 9) + ":</label>"
-            $(".updateScoreRow")[1].innerHTML += "<input type='number' onkeyup='updateScore(\"" + playerSel.name + "\", value, " + i +")'>";
+            $(".updateScoreRow")[1].innerHTML += "<label>Hole " + (i + 10) + ":</label>"
+            $(".updateScoreRow")[1].innerHTML += "<input type='number' onkeyup='updateScore(\"" + playerSel.name + "\", value, " + (i + 9) +")'>";
         }
         $(".updateScoreRow")[0].innerHTML += "<label>Hole " + (i + 1) + ":</label>"
         $(".updateScoreRow")[0].innerHTML += "<input type='number' onkeyup='updateScore(\"" + playerSel.name + "\", value, " + i + ")'>";
