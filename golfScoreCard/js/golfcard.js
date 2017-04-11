@@ -1,4 +1,6 @@
 
+var playerSel;
+
 var players = [];
 var count = 1;
 
@@ -35,6 +37,7 @@ function addPlayerToAdd() {
 
 }
 
+//This function "deletes" any added player to add by not displaying it.
 function removePlayerToAdd(index) {
 
     $("#player"+index).css("display", "none");
@@ -49,6 +52,7 @@ function addPlayers() {
     var selectList = $(".selectTee");
     var displayedList = [];
 
+    //Goes through a loop and makes sure that no unseen players get added.
     for (var i = 0; i < $(".playerToAdd").length; i++) {
         if ($(".playerToAdd")[i].style.display != "none") {
             displayedList.push($(".playerToAdd")[i]);
@@ -96,22 +100,7 @@ function addPlayers() {
         return;
     }
 
-
-    $("#addPlayerList").html("<div class='playerToAdd'>"+
-        "<label>Add New Player:</label>"+
-        "<input title='name' type='text' name='addPlayer' onkeyup='validateName()'>"+
-        "<select class='selectTee'>"+
-        "<option selected value=''>Select a Tee Type Please</option>"+
-        "<option value='pro'>Pro</option>"+
-        "<option value='champion'>Champion</option>"+
-        "<option value='men'>Men</option>"+
-        "<option value='women'>Women</option>"+
-        "<!-- <option>amateur</option> -->"+
-        "</select>"+
-
-        "</div>");
-
-    count = 1;
+    resetAddModal();
 
     $("#addPlayer").modal("hide");
 
@@ -437,12 +426,28 @@ function setupScoreModal() {
 
 }
 
-var playerSel;
+function resetAddModal() {
+    $("#addPlayerList").html("<div class='playerToAdd'>"+
+        "<label>Add New Player:</label>"+
+        "<input title='name' type='text' name='addPlayer' onkeyup='validateName()'>"+
+        "<select class='selectTee'>"+
+        "<option selected value=''>Select a Tee Type Please</option>"+
+        "<option value='pro'>Pro</option>"+
+        "<option value='champion'>Champion</option>"+
+        "<option value='men'>Men</option>"+
+        "<option value='women'>Women</option>"+
+        "<!-- <option>amateur</option> -->"+
+        "</select>"+
+        "</div>");
+
+    count = 1;
+}
 
 function setupMatrix(player) {
 
-    $("#updateScoreMatrix").html("");
+    $("#updateScoreMatrix").html(""); //This resets the matrix in the update Modal
 
+    //It searches for the player that was clicked
     for (var playerInd = 0; playerInd < players.length; playerInd++) {
         if (players[playerInd].name == player) {
             playerSel = players[playerInd];
@@ -450,12 +455,14 @@ function setupMatrix(player) {
         }
     }
 
+    //It adds the rows and title of the matrix
     $("#updateScoreMatrix").append("<div id='headScorePlayer'>" + playerSel.name + "</div>");
 
     for (var i = 0; i < 2; i++) {
         $("#updateScoreMatrix").append("<div class='updateScoreRow'></div>");
     }
 
+    //It adds the data to the rows
     for (var i = 0; i < 9; i++) {
         if (holes.length > 9) {
             $(".updateScoreRow")[1].innerHTML += "<label>Hole " + (i + 10) + ":</label>"
@@ -467,6 +474,7 @@ function setupMatrix(player) {
 
 }
 
+//This function switches the rows seen by the end user as far as meters and yards go.
 function updateMeasRows(value) {
 
     if (value == "meters") {
