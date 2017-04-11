@@ -821,7 +821,7 @@
 
                         <label>Add New Player:</label>
                         <input title="name" type="text" name="addPlayer" onkeyup="validateName()">
-                        <select title="selecteTee" class="selectTee">
+                        <select title="selectTee" class="selectTee">
                             <option selected value="">Select a Tee Type Please</option>
                             <option value="pro">Pro</option>
                             <option value="champion">Champion</option>
@@ -837,7 +837,7 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" onclick="resetAddModal()" data-dismiss="modal">Close</button>
                 <button type="button" id="addPlayersButton" onclick="addPlayers()" class="btn btn-primary">Add Players</button>
             </div>
         </div>
