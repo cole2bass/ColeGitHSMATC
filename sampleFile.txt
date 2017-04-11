@@ -1,3 +1,0 @@
-this is a file for test to make sure that git version control works as it should as it did.
-I am not here to make ignorant humans happy.
-I am not a pineapple or a guava

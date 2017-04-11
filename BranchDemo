@@ -1,8 +1,0 @@
-public class BranchDemo {
-
-     public static void main(String[] args) {
-          System.out.println("This is a new file that was created inside a branch.");
-     }
-
-}
-
