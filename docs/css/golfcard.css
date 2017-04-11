@@ -1,0 +1,312 @@
+
+@media (max-width: 768px) {
+    .showXS {
+        display: block;
+    }
+
+    .labelText {
+        text-align: center;
+    }
+
+    .noShow {
+        display: none;
+    }
+
+    .holeRow>div {
+        text-align: center;
+        padding: 12px;
+    }
+
+}
+
+@media (min-width: 769px) {
+    .showXS {
+        display: none;
+    }
+}
+
+body {
+    background-image: url("../img/golfball.jpg");
+    background-size: cover;
+}
+
+.cell {
+    width: 10%;
+}
+
+.cellLabel {
+    text-align: right;
+    position: relative;
+    right: 20px;
+    font-weight: bold;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.85);
+    margin: 50px auto;
+    border-radius: 20px;
+}
+
+div.row {
+     border-style: solid;
+     border-width: 1px;
+     width: 100%;
+     margin: 0 auto;
+     text-align: center;
+ }
+
+.holeRow {
+    background-color: rgb(255,225,0);
+    font-weight: bold;
+}
+
+.holeRow a{
+    text-decoration: none;
+    color: rgb(235,150,0);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.holeRow a:hover {
+    color: rgb(225,125,0);
+}
+
+.meterRow {
+     display: none;
+}
+
+.pro {
+      background-color: black;
+      color: white;
+  }
+
+.champion {
+      background-color: deepskyblue;
+  }
+
+.men {
+    background-color: white;
+}
+
+.women {
+    background-color: rgb(255, 100, 100);
+}
+
+.handyRow {
+    background-color: burlywood;
+}
+
+.labelText {
+    font-weight: bold;
+    font-size: 20px;
+    text-align: left;
+}
+
+.modal-body .alert {
+    display: none;
+}
+
+.modalRemove {
+    display: block;
+    color: coral;
+    text-decoration: none;
+}
+.modalRemove:hover {
+    color: rgb(230, 150, 150);
+    text-decoration: none;
+}
+.modalRemove:focus {
+    color: rgb(230, 150, 150);
+    text-decoration: none;
+}
+
+.parRow {
+    background-color: rgb(255,185,140);
+}
+
+.playerContainer {
+    border-style: solid;
+    border-width: 2px;
+    margin: 15px auto;
+}
+
+.player {
+    border-style: solid;
+    border-width: 1px;
+    border-top-width: 0;
+}
+
+.player input {
+    width: 60px;
+    text-align: center;
+}
+
+.player.pro input {
+    color: black;
+}
+
+.playerLabel {
+    font-size: 24px;
+}
+
+.playerList {
+    width: 100%;
+    padding: 9px;
+    margin: -10px;
+}
+
+.playerName {
+    font-weight: bold;
+    font-size: 20px;
+    text-align: left;
+}
+
+.playerTable {
+    margin-bottom: 0;
+}
+
+.playerToAdd span{
+    display: inline-block;
+    padding: 10px;
+}
+
+.playerToAdd {
+    margin-left: 18px;
+    margin-bottom: 10px;
+}
+
+.playerToAdd label {
+    margin-right: 12px;
+}
+
+.playerToAdd > input[type="text"] {
+    margin-right: 10px;
+}
+
+.playerToDelete {
+    border-bottom-style: solid;
+}
+
+.modal-body label {
+    font-size: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#addPlayerList>div.playerToAdd {
+    margin-left: 10px;
+}
+
+.rowContainer {
+    margin-top: 10px;
+    margin-bottom: 8px;
+    border-style: solid;
+    border-bottom-width: 1px;
+}
+
+.totalNameRow, .totalScoreRow {
+    display: flex;
+}
+
+.totalDiv {
+    margin-left: 20px;
+    margin-bottom: 30px;
+}
+
+.totalPlayerName, .totalPlayerScore {
+    width: 100%;
+    font-weight: bold;
+    font-size: 20px;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.type1 {
+    background-color: rgb(255,165,0);
+}
+
+.type2 {
+    background-color: rgb(255,165,100);
+}
+
+#topTitle {
+    color: darkorange;
+    font-family: 'Playfair Display', serif;
+    font-size: 65px;
+    margin: 20px auto;
+    margin-top: 40px;
+    text-align: center;
+}
+
+#addPlayerList label {
+    padding: 8px;
+    font-size: 18px;
+}
+
+#mapBox {
+    width: 100%;
+    height: 600px;
+    margin: 30px auto;
+    background-color: grey;
+}
+#map {
+    width: 80%;
+    height: 100%;
+    margin: 30px auto;
+}
+
+#headScorePlayer {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#parTotal {
+    font-size: 45px;
+}
+
+#parTotalBox {
+    display: flex;
+}
+
+#selectCourse {
+     margin: 10px;
+ }
+
+#tempSel {
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+#totalParLabel {
+    padding-right: 15px;
+}
+
+#updateScoreMatrix input[type="number"]{
+    width: 85px;
+}
+
+#weatherDiv {
+    border-style: solid;
+    margin-bottom: 30px;
+    width: 360px;
+    padding: 10px;
+}
+
+#weatherLabel {
+    font-size: 40px;
+    color: rgba(125,125,125,.35);
+    text-shadow: 2px 2px 5px;
+}
+
+#weatherMeta {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+#yardsOrMeters {
+    margin: 0 auto;
+    margin-top: -15px;
+    margin-bottom: 15px;
+    padding: 10px;
+}
