@@ -90,7 +90,7 @@ function getWeather() {
         }
 
     }
-    xhttp.open("POST", "https://api.openweathermap.org/data/2.5/weather?q="+  cityName  + "&appid=cc8ef8e5c209d938ab3801daa42b5e31", true);
+    xhttp.open("POST", "http://api.openweathermap.org/data/2.5/weather?q="+  cityName  + "&appid=cc8ef8e5c209d938ab3801daa42b5e31", true);
     xhttp.send();
 
 }
