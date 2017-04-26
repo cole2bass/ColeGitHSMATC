@@ -1,0 +1,11 @@
+
+#canvasBox {
+    margin: 30px auto;
+}
+
+#startText {
+    position: fixed;
+    color: white;
+    top: 25%;
+    left: 50%;
+}
