@@ -2,6 +2,7 @@
 var rocket;
 var background;
 var enemyRocket;
+var holeSprite;
 
 function Sprite(img, x, y, width, height) {
     this.img = img;
@@ -23,10 +24,13 @@ function initSprites(img) {
     ];
 
     enemyRocket = [
-        new Sprite(img, 0, 30, 69, 30),
-        new Sprite(img, 69, 30, 69, 26),
-        new Sprite(img, 138, 30, 69, 26)
+        new Sprite(img, 0, 30, 53, 30),
+        new Sprite(img, 56, 30, 53, 26),
+        new Sprite(img, 110, 30, 53, 26)
     ];
+
+    enemyRocket.width = enemyRocket[0].width;
+    enemyRocket.height = enemyRocket[0].height;
 
     background = new Sprite(img, 165, 0, 300, 319);
 }

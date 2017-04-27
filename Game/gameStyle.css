@@ -1,11 +1,20 @@
 
 #canvasBox {
-    margin: 30px auto;
+    position: relative;
+    margin-top: 30px;
+    margin: 0 auto;
 }
 
 #startText {
-    position: fixed;
+    position: absolute;
     color: white;
-    top: 25%;
-    left: 50%;
+    top: 45px;
+    left: 45%;
+}
+
+#scoreText {
+    position: absolute;
+    color: white;
+    top: 10px;
+    left: 10px;
 }
