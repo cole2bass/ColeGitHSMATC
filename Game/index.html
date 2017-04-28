@@ -8,11 +8,17 @@
 </head>
 <body onload="main()">
 
+<div id="highScoreBlock">
+    <div id="highScoreLabel">High Score: </div>
+    <div id="highScore">0</div>
+</div>
+
 <div id="canvasBox">
     <div id="startText">Click to Start!</div>
     <div id="scoreText">Score: 0</div>
 
 </div>
+<a id="restartGame" href="javascript: resetGame()">Restart Game</a>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="game.js"></script>

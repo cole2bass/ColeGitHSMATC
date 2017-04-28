@@ -18,3 +18,16 @@
     top: 10px;
     left: 10px;
 }
+
+#highScoreBlock {
+    display: flex;
+    justify-content: flex-start;
+}
+
+#highScoreLabel {
+    padding-right: 10px;
+}
+
+a {
+    display: none;
+}

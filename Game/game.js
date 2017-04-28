@@ -11,17 +11,21 @@ var playerRocket;
 var frames = 0;
 var inputType = "";
 var missiles;
+var score = 0;
+var difficulty = "";
 
 function Rocket(){
     this.x = 50;
     this.y = 200;
-    this.width = 69;
-    this.height = 30;
+    this.rWidth = 69;
+    this.rHeight = 30;
 
     this.frame = 0;
     this.animation = [0,1,2,1];
 
     this.rotation = 0;
+    this.maxRot = 1.6;
+    // this.angDrag = 0.89;
     this.radius = 15;
     this.moveUp = false;
     this.moveDown = false;
@@ -46,12 +50,22 @@ function Rocket(){
     this.updateGameRocket = function () {
         if (this.moveUp) {
             this.y -= 5;
+            this.rotation -= 0.02;
+            if (this.rotation <= -this.maxRot) {
+                this.rotation = this.maxRot;
+            }
         }
         if (this.moveDown) {
             this.y += 5;
+            this.rotation += 0.02;
+            if (this.rotation >= this.maxRot) {
+                this.rotation = -this.maxRot;
+            }
         }
-        if (this.y + this.height >= height) {
-            currentState = states.Score;
+        this.rotation *= 0.94;
+
+        if (this.y + this.rHeight >= height) {
+            endGame();
         }
     }
 
@@ -85,7 +99,9 @@ function Rocket(){
 }
 
 function MissileGroup() {
-    this.missleArr = [];
+    this.stackX = [];
+    this.stacks = [];
+    this.stackScored = [];
 
     this.add = function (missile) {
         this.missleArr.push(missile);
@@ -94,27 +110,37 @@ function MissileGroup() {
     this.stackAdd = function () {
         var spawnY = 0
         var missileHoleCount = 3;
+        // if (difficulty == "Easy") {
+        //
+        // }
+        // if (difficulty == "Medium") {
+        //
+        // }
+        // if (difficulty == "Hard") {
+        //
+        // }
         var missileMakeHole = false;
         var mCount = 0;
         var count = 0;
         var randomCount = 0;
         var randomSet = false;
         var holeMade = false;
-        while (spawnY < height) {
+        var newStack = [];
+        while (spawnY < (height - (mHeight * 3))) {
             var missile = new Missile(spawnY);
             if (missileMakeHole) {
                 if (missileHoleCount === mCount) {
                     missileMakeHole = false;
                 }
-                spawnY += missile.height;
-                mCount;
+                spawnY += missile.mHeight;
+                mCount++;
                 count++;
                 continue;
             }
-            this.add(missile);
-            spawnY += missile.height;
+            newStack.push(missile);
+            spawnY += missile.mHeight;
             if (!randomSet) {
-                randomCount = Math.floor(Math.random() * (height / missile.height));
+                randomCount = Math.floor(Math.random() * ((height - (missile.mHeight * 3) ) / missile.mHeight));
                 randomSet = true;
             }
             if (!holeMade && count === randomCount) {
@@ -124,6 +150,17 @@ function MissileGroup() {
             }
             count ++;
         }
+        this.stacks.push(newStack);
+        this.addStackX(missile.x + missile.mWidth);
+        this.newScored(false);
+    }
+
+    this.addStackX = function(num) {
+        this.stackX.push(num);
+    }
+
+    this.newScored = function (val) {
+        this.stackScored.push(val);
     }
 
     this.reset = function () {
@@ -135,28 +172,41 @@ function MissileGroup() {
             this.stackAdd();
         }
 
-        for (var i = 0, len = this.missleArr.length; i < len; i++) {
-            var missile = this.missleArr[i];
-
-            if (i === 0) {
-                missile.detectCollision();
+        for (var i = 0; i < this.stacks.length; i++) {
+            for (var missile in this.stacks[i]) {
+                if (i === 0) {
+                    this.stacks[i][missile].detectCollision();
+                }
+                this.stacks[i][missile].x -= 2;
+                this.stackX[i] = this.stacks[i][missile].x + this.stacks[i][missile].mWidth;
+                this.stacks[i][missile].update();
             }
 
-            missile.update();
 
-            missile.x -= 2;
-            if (missile.x < -missile.width) {
-                this.missleArr.splice(i,1);
-                i --;
-                len --;
+            if (currentState == states.Game) {
+                if (playerRocket.x > this.stackX[i] && this.stackScored[i] == false) {
+                    this.stackScored[i] = true;
+                    updateScore(1);
+                }
+            }
+
+
+            if (this.stackX[i] <= 0) {
+                this.stackX.shift();
+                this.stacks.shift();
+                this.stackScored.shift();
+                i--;
             }
         }
+
     }
 
     this.draw = function () {
-        for (var i = 0; i < this.missleArr.length; i ++) {
-            var missile = this.missleArr[i];
-            missile.draw();
+
+        for (var i = 0; i < this.stacks.length; i++) {
+            for (var j = 0; j < this.stacks[i].length; j++) {
+                this.stacks[i][j].draw();
+            }
         }
     }
 
@@ -165,8 +215,8 @@ function MissileGroup() {
 function Missile(y) {
     this.x = width;
     this.y = y;
-    this.width = enemyRocket.width;
-    this.height = enemyRocket.height;
+    this.mWidth = enemyRocket.width;
+    this.mHeight = enemyRocket.height;
     this.frame = 0;
     this.animation = [0,1,2,1];
 
@@ -183,14 +233,28 @@ function Missile(y) {
 
     this.detectCollision = function () {
 
-
-        function isWithinRange() {
-
+        if (isWithinRange(this.x, this.y, this.mWidth, this.mHeight)) {
+            console.log("You are dead as a toadstool.");
+            endGame();
         }
 
-        function passed() {
+        function isWithinRange(x, y, width, height) {
+            var xRange = false, yRange = false;
 
+            if ((playerRocket.x + playerRocket.rWidth) >= x && playerRocket.x <= (x + width)) {
+                xRange = true;
+            }
+            if ((playerRocket.y + playerRocket.rHeight) >= y && playerRocket.y <= (y + height)) {
+                yRange = true;
+            }
+
+            if (xRange && yRange) {
+                return true;
+            }
+
+            return false;
         }
+
     }
 
 }
@@ -248,6 +312,10 @@ function canvasSetup() {
     canvas.width = width;
     canvas.height = height;
     renderingContext = canvas.getContext("2d");
+    addEventListener("blur", function () {
+       playerRocket.moveUp = false;
+       playerRocket.moveDown = false;
+    });
     if (inputType === "touch") {
         addEventListener("touchstart", touchStart);
         addEventListener("touchmove", move);
@@ -303,7 +371,7 @@ function gameLoop() {
 
 function update() {
     frames ++;
-    if (currentState == states.Game) {
+    if (currentState != states.Splash) {
         missiles.update();
     }
     playerRocket.update();
@@ -312,10 +380,16 @@ function update() {
 function render() {
     renderingContext.fillRect(0,0,width,height);
     drawBackground(renderingContext);
-    if (currentState == states.Game) {
+    if (currentState != states.Splash) {
         missiles.draw();
     }
-    playerRocket.drawRocket(renderingContext);
+    if (currentState != states.Score) {
+        playerRocket.drawRocket(renderingContext);
+    }
+    renderingContext.beginPath();
+    renderingContext.moveTo(playerRocket.x, 0);
+    renderingContext.lineTo(playerRocket.x, height);
+    renderingContext.stroke;
 }
 
 function drawBackground(renderingContext) {
@@ -325,4 +399,26 @@ function drawBackground(renderingContext) {
     background.draw(renderingContext, 0,0);
 
     renderingContext.restore();
+}
+
+function endGame() {
+    currentState = states.Score;
+    $("#restartGame").css("display", "block");
+}
+
+function resetGame() {
+    missiles.reset();
+    currentState = states.Splash;
+    if (score > Number(localStorage.getItem("HighScore"))) {
+        localStorage.setItem("HighScore", score);
+    }
+    document.getElementById("highScore").innerHTML = localStorage.getItem("HighScore");
+    score = 0;
+    document.getElementById("scoreText").innerHTML = "Score: " + score;
+    document.getElementById("restartGame").style.display = "none";
+}
+
+function updateScore(points) {
+    score += points;
+    $("#scoreText").text("Score: "+score);
 }
