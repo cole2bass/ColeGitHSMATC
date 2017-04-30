@@ -12,7 +12,7 @@ var frames = 0;
 var inputType = "";
 var missiles;
 var score = 0;
-var difficulty = "";
+var difficulty = "Easy";
 
 function Rocket(){
     this.x = 50;
@@ -35,17 +35,17 @@ function Rocket(){
         this.frame += frames % h === 0 ? 1: 0;
         this.frame %= this.animation.length;
 
-        if (currentState == states.Splash) {
+        if (currentState === states.Splash) {
             this.updateIdleRocket();
         }
-        else if (currentState == states.Game){
+        else if (currentState === states.Game){
             this.updateGameRocket();
         }
-    }
+    };
 
     this.updateIdleRocket  = function () {
         this.y = 200;
-    }
+    };
 
     this.updateGameRocket = function () {
         if (this.moveUp) {
@@ -67,7 +67,7 @@ function Rocket(){
         if (this.y + this.rHeight >= height) {
             endGame();
         }
-    }
+    };
 
     this.movePlayer = function (keyCode) {
         //if key is up key move up (-y)
@@ -78,11 +78,19 @@ function Rocket(){
         if (keyCode === 40) {
             this.moveDown = true;
         }
-    }
+    };
 
-    this.moveTouch = function (evt) {
+    this.reset = function () {
+        this.y = 200;
+        this.frame = 0;
+        this.rotation = 0;
+        this.moveUp = false;
+        this.moveDown = false;
+    };
 
-    }
+    // this.moveTouch = function (evt) {
+    //
+    // }
 
     this.drawRocket = function (renderingContext) {
         renderingContext.save();
@@ -105,20 +113,20 @@ function MissileGroup() {
 
     this.add = function (missile) {
         this.missleArr.push(missile);
-    }
+    };
 
     this.stackAdd = function () {
-        var spawnY = 0
+        var spawnY = 0;
         var missileHoleCount = 3;
-        // if (difficulty == "Easy") {
-        //
-        // }
-        // if (difficulty == "Medium") {
-        //
-        // }
-        // if (difficulty == "Hard") {
-        //
-        // }
+        if (difficulty === "Easy") {
+            missileHoleCount = 3;
+        }
+        if (difficulty === "Medium") {
+            missileHoleCount = 2;
+        }
+        if (difficulty === "Hard") {
+            missileHoleCount = 1;
+        }
         var missileMakeHole = false;
         var mCount = 0;
         var count = 0;
@@ -153,21 +161,35 @@ function MissileGroup() {
         this.stacks.push(newStack);
         this.addStackX(missile.x + missile.mWidth);
         this.newScored(false);
-    }
+    };
 
     this.addStackX = function(num) {
         this.stackX.push(num);
-    }
+    };
 
     this.newScored = function (val) {
         this.stackScored.push(val);
-    }
+    };
 
     this.reset = function () {
-        this.missleArr = [];
-    }
+        this.stacks = [];
+        this.stackScored = [];
+        this.stackX = [];
+    };
 
     this.update = function () {
+        var delay = 0;
+        switch (difficulty) {
+            case "Easy":
+                delay = 200;
+                break;
+            case "Medium":
+                delay = 150;
+                break;
+            case "Hard":
+                delay = 100;
+                break;
+        }
         if (frames % 150 === 0) {
             this.stackAdd();
         }
@@ -183,7 +205,7 @@ function MissileGroup() {
             }
 
 
-            if (currentState == states.Game) {
+            if (currentState === states.Game) {
                 if (playerRocket.x > this.stackX[i] && this.stackScored[i] == false) {
                     this.stackScored[i] = true;
                     updateScore(1);
@@ -199,7 +221,7 @@ function MissileGroup() {
             }
         }
 
-    }
+    };
 
     this.draw = function () {
 
@@ -224,12 +246,12 @@ function Missile(y) {
         var r = 5;
         this.frame += frames % r === 0 ? 1 : 0;
         this.frame %= this.animation.length;
-    }
+    };
 
     this.draw = function () {
         var d = this.animation[this.frame];
         enemyRocket[d].draw(renderingContext, this.x, this.y);
-    }
+    };
 
     this.detectCollision = function () {
 
@@ -248,11 +270,7 @@ function Missile(y) {
                 yRange = true;
             }
 
-            if (xRange && yRange) {
-                return true;
-            }
-
-            return false;
+            return xRange && yRange;
         }
 
     }
@@ -264,6 +282,7 @@ function main() {
     canvasSetup();
     currentState = states.Splash;
     $("#canvasBox").append(canvas);
+    getHighScore();
     // document.body.appendChild(canvas);
     playerRocket = new Rocket();
     missiles = new MissileGroup();
@@ -293,18 +312,18 @@ function windowSetup() {
 }
 
 function clickedMouse(evt) {
-    if (currentState == states.Splash) {
+    if (currentState === states.Splash) {
         currentState = states.Game;
         $("#startText").css("display", "none");
     }
 }
 
-function touchStart(evt) {
-    if (currentState == states.Splash) {
-        currentState = states.Game;
-        $("#startText").css("display", "none");
-    }
-}
+// function touchStart(evt) {
+//     if (currentState === states.Splash) {
+//         currentState = states.Game;
+//         $("#startText").css("display", "none");
+//     }
+// }
 
 function canvasSetup() {
     canvas = document.createElement("canvas");
@@ -316,15 +335,15 @@ function canvasSetup() {
        playerRocket.moveUp = false;
        playerRocket.moveDown = false;
     });
-    if (inputType === "touch") {
-        addEventListener("touchstart", touchStart);
-        addEventListener("touchmove", move);
-    }
-    else if (inputType === "keys") {
-        addEventListener("mousedown", clickedMouse);
+    // if (inputType === "touch") {
+    //     canvas.addEventListener("touchstart", touchStart);
+    //     addEventListener("touchmove", move);
+    // }
+    // else if (inputType === "keys") {
+        canvas.addEventListener("mousedown", clickedMouse);
         addEventListener("keydown", move);
-        addEventListener("keyup", release)
-    }
+        addEventListener("keyup", release);
+    // }
     // switch (width) {
     //
     // }
@@ -334,7 +353,7 @@ function move(evt) {
     if (evt.type === "keydown") {
         playerRocket.movePlayer(evt.keyCode);
     }
-    else if (evt.type == "touchmove") {
+    else if (evt.type === "touchmove") {
         console.log(evt);
     }
 }
@@ -371,8 +390,12 @@ function gameLoop() {
 
 function update() {
     frames ++;
-    if (currentState != states.Splash) {
+    if (currentState === states.Splash) {
+        $("#selectDifficulty").css("display", "block");
+    }
+    if (currentState !== states.Splash) {
         missiles.update();
+        $("#selectDifficulty").css("display", "none");
     }
     playerRocket.update();
 }
@@ -380,16 +403,12 @@ function update() {
 function render() {
     renderingContext.fillRect(0,0,width,height);
     drawBackground(renderingContext);
-    if (currentState != states.Splash) {
+    if (currentState !== states.Splash) {
         missiles.draw();
     }
-    if (currentState != states.Score) {
+    if (currentState !== states.Score) {
         playerRocket.drawRocket(renderingContext);
     }
-    renderingContext.beginPath();
-    renderingContext.moveTo(playerRocket.x, 0);
-    renderingContext.lineTo(playerRocket.x, height);
-    renderingContext.stroke;
 }
 
 function drawBackground(renderingContext) {
@@ -407,6 +426,7 @@ function endGame() {
 }
 
 function resetGame() {
+    playerRocket.reset();
     missiles.reset();
     currentState = states.Splash;
     if (score > Number(localStorage.getItem("HighScore"))) {
@@ -418,7 +438,18 @@ function resetGame() {
     document.getElementById("restartGame").style.display = "none";
 }
 
+function getHighScore() {
+    if (localStorage.getItem("HighScore") !== undefined) {
+        var high = Number(localStorage.getItem("HighScore"));
+        document.getElementById("highScore").innerHTML = ""+high;
+    }
+}
+
 function updateScore(points) {
     score += points;
     $("#scoreText").text("Score: "+score);
+}
+
+function changeDifficulty(value) {
+    difficulty = value;
 }

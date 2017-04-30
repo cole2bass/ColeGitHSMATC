@@ -18,7 +18,14 @@
     <div id="scoreText">Score: 0</div>
 
 </div>
-<a id="restartGame" href="javascript: resetGame()">Restart Game</a>
+<div>
+    <a id="restartGame" href="javascript: resetGame()">Restart Game</a>
+    <select id="selectDifficulty" onchange="changeDifficulty(value)">
+        <option value="Easy">Easy</option>
+        <option value="Medium">Medium</option>
+        <option value="Hard">Hard</option>
+    </select>
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="game.js"></script>
