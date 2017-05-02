@@ -1,0 +1,33 @@
+
+#canvasBox {
+    position: relative;
+    margin-top: 30px;
+    margin: 0 auto;
+}
+
+#startText {
+    position: absolute;
+    color: white;
+    top: 45px;
+    left: 45%;
+}
+
+#scoreText {
+    position: absolute;
+    color: white;
+    top: 10px;
+    left: 10px;
+}
+
+#highScoreBlock {
+    display: flex;
+    justify-content: flex-start;
+}
+
+#highScoreLabel {
+    padding-right: 10px;
+}
+
+a {
+    display: none;
+}
